@@ -19,8 +19,10 @@ app.use((req, res, next) => {
 
 
 const authRoutes = require("./routes/auth");
+const adminRoutes = require("./routes/admin");
 
 app.use(authRoutes)
+app.use('/admin',adminRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
