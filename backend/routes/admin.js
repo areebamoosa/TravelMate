@@ -1,16 +1,31 @@
 const express = require("express");
 const router = express.Router();
 
-const adminController = require("../controllers/admin/destinationController");
+const destinationController = require("../controllers/admin/destinationController");
+const placesController = require("../controllers/admin/placesController");
 
-router.post("/create-destination", adminController.postDestination);
+// Destination routes
 
-router.get("/destination/:destinationId", adminController.getSingleDestination);
+router.post("/create-destination", destinationController.postDestination);
 
-router.get("/destinations", adminController.getAllDestinations);
+router.get("/destination/:destinationId", destinationController.getSingleDestination);
 
-router.put("/destination/:destinationId", adminController.updateDestination);
+router.get("/destinations", destinationController.getAllDestinations);
 
-router.delete("/delete-destination/:destinationId", adminController.deleteDestination);
+router.put("/destination/:destinationId", destinationController.updateDestination);
+
+router.delete("/delete-destination/:destinationId", destinationController.deleteDestination);
+
+// Places routes
+
+router.post("/create-place", placesController.createPlace);
+
+router.get("/place/:placeId", placesController.getSinglePlace);
+
+router.get("/places", placesController.getPlaces);
+
+router.put("/update-place/:placeId", placesController.updatePlace);
+
+router.delete("/delete-place/:placeId", placesController.deletePlace);
 
 module.exports = router;
