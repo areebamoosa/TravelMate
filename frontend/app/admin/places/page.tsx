@@ -39,6 +39,8 @@ export default function Places() {
         } else {
             console.error("Failed to delete place", data);
         }
+    } catch(err) {
+        console.log(err);
     }
   }
 
