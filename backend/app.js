@@ -3,7 +3,7 @@ const express = require("express");
 
 const app = express();
 
-app.use(express.json())
+app.use(express.json());
 
 const PORT = process.env.PORT || 3000;
 
@@ -17,12 +17,16 @@ app.use((req, res, next) => {
   next();
 });
 
-
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
 
-app.use(authRoutes)
-app.use('/admin',adminRoutes)
+const errorHandler = require("./middlewares/errorHandler");
+
+app.use(authRoutes);
+app.use("/admin", adminRoutes);
+
+app.use(errorHandler.notFound);
+app.use(errorHandler.errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

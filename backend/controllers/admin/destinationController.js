@@ -18,7 +18,7 @@ exports.postDestination = async (req, res, next) => {
       .status(201)
       .json({ message: "Destination created successfully!", destination });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -30,11 +30,17 @@ exports.getSingleDestination = async (req, res, next) => {
       where: { id: destinationId },
     });
 
+    if (!destination) {
+      const error = new Error("Destination not found");
+      error.status = 404;
+      return next(error);
+    }
+
     return res
       .status(200)
       .json({ message: "Destination fetched successfully!", destination });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -42,11 +48,17 @@ exports.getAllDestinations = async (req, res, next) => {
   try {
     const destinations = await prisma.destination.findMany();
 
+    if (!destinations) {
+      const error = new Error("Destinations not found");
+      error.status = 404;
+      return next(error);
+    }
+
     return res
       .status(200)
       .json({ message: "Destinations fetched successfully!", destinations });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -75,21 +87,38 @@ exports.updateDestination = async (req, res, next) => {
       },
     });
 
+    if (!destination) {
+      const error = new Error("Destination not found");
+      error.status = 404;
+      return next(error);
+    }
+
     return res
       .status(200)
-      .json({ message: "Destination fetched successfully!", destination });
+      .json({ message: "Destination updated successfully!", destination });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
 exports.deleteDestination = async (req, res, next) => {
-  const destinationId = parseInt(req.params.destinationId);
+  try {
+    const destinationId = parseInt(req.params.destinationId);
 
+    const destination = await prisma.destination.delete({
+      where: { id: destinationId },
+    });
 
-  await prisma.destination.delete({
-    where: { id: destinationId },
-  });
+    if (!destination) {
+      const error = new Error("Destination not found");
+      error.status = 404;
+      return next(error);
+    }
 
-  return res.status(201).json({ message: "Destination deleted successfully!" });
+    return res
+      .status(201)
+      .json({ message: "Destination deleted successfully!" });
+  } catch (err) {
+    next(err);
+  }
 };

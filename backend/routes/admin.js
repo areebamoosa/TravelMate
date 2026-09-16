@@ -4,6 +4,7 @@ const router = express.Router();
 const destinationController = require("../controllers/admin/destinationController");
 const placesController = require("../controllers/admin/placesController");
 const blogController = require("../controllers/admin/blogController");
+const tourController = require("../controllers/admin/toursController");
 
 // Destination routes
 
@@ -41,5 +42,18 @@ router.get("/blogs", blogController.allBlogs)
 router.put("/blog/:blogId", blogController.updateBlog)
 
 router.delete("/blog/:blogId", blogController.deleteBlog)
+
+
+// Tour routes
+
+router.post("/create-tour", tourController.createTour)
+
+router.get('/tour/:tourId', tourController.getSingleTour)
+
+router.get('/tours', tourController.getAllTours)
+
+router.put('/tour/:tourId', tourController.updateTour)
+
+router.delete('/tour/:tourId', tourController.deleteTour)
 
 module.exports = router;

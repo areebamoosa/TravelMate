@@ -14,7 +14,7 @@ exports.postBlog = async (req, res, next) => {
 
     return res.status(201).json({ message: "Blog created successfully", blog });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -25,12 +25,14 @@ exports.getSingleBlog = async (req, res, next) => {
     const blog = await prisma.blog.findUnique({ where: { id: blogId } });
 
     if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
+      const error = new Error("Blog not found");
+      error.status = 404;
+      return next(error);
     }
 
     return res.status(200).json({ message: "Blog found successfully", blog });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 exports.allBlogs = async (req, res, next) => {
@@ -38,12 +40,14 @@ exports.allBlogs = async (req, res, next) => {
     const blogs = await prisma.blog.findMany();
 
     if (!blogs) {
-      return res.status(404).json({ message: "Blogs not found" });
+      const error = new Error("Blogs not found");
+      error.status = 404;
+      return next(error);
     }
 
     return res.status(200).json({ message: "Blogs found successfully", blogs });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 exports.updateBlog = async (req, res, next) => {
@@ -55,7 +59,9 @@ exports.updateBlog = async (req, res, next) => {
     const blog = await prisma.blog.findUnique({ where: { id: blogId } });
 
     if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
+      const error = new Error("Blog not found");
+      error.status = 404;
+      return next(error);
     }
 
     updateBlog = await prisma.blog.update({
@@ -71,7 +77,7 @@ exports.updateBlog = async (req, res, next) => {
       .status(200)
       .json({ message: "Blog updated succesfully", updateBlog });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -82,13 +88,15 @@ exports.deleteBlog = async (req, res, next) => {
     const blog = await prisma.blog.findUnique({ where: { id: blogId } });
 
     if (!blog) {
-      return res.status(404).json({ message: "Blog not found" });
+      const error = new Error("Blog not found");
+      error.status = 404;
+      return next(error);
     }
 
     await prisma.blog.delete({ where: { id: blogId } });
 
     return res.status(200).json({ message: "Blog deleted succesfully" });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };

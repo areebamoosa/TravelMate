@@ -19,7 +19,7 @@ exports.createPlace = async (req, res, next) => {
       .status(201)
       .json({ message: "Place created successfully", place });
   } catch (err) {
-    console.log(er);
+    next(err);
   }
 };
 
@@ -30,12 +30,14 @@ exports.getSinglePlace = async (req, res, next) => {
     const place = await prisma.place.findUnique({ where: { id: placeId } });
 
     if (!place) {
-      return res.status(404).json({ message: "Place not found" });
+      const error = new Error("Place not found");
+      error.status = 404;
+      return next(error);
     }
 
     return res.status(200).json({ message: "Place found successfully", place });
   } catch (error) {
-    console.log(er);
+    next(err);
   }
 };
 
@@ -44,14 +46,16 @@ exports.getPlaces = async (req, res, next) => {
     const places = await prisma.place.findMany();
 
     if (!places) {
-      return res.status(404).json({ message: "Places not found" });
+      const error = new Error("Places not found");
+      error.status = 404;
+      return next(error);
     }
 
     return res
       .status(200)
       .json({ message: "Places found successfully", places });
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
@@ -78,14 +82,16 @@ exports.updatePlace = async (req, res, next) => {
     });
 
     if (!place) {
-      return res.status(404).json({ message: "Place not found" });
+      const error = new Error("Place not found");
+      error.status = 404;
+      return next(error);
     }
 
     return res
       .status(200)
       .json({ message: "Place updated successfully", place });
   } catch (error) {
-    console.log(er);
+    next(err);
   }
 };
 
@@ -95,11 +101,13 @@ exports.deletePlace = async (req, res, next) => {
   try {
     const place = await prisma.place.delete({ where: { id: placeId } });
     if (!place) {
-      return res.status(404).json({ message: "Place not found" });
+      const error = new Error("Place not found");
+      error.status = 404;
+      return next(error);
     }
     return res.status(200).json({ message: "Place deleted successfully" });
   } catch (err) {
-    console.log(er);
+    next(err);
   }
 };
 
