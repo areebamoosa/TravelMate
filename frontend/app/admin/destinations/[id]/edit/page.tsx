@@ -1,7 +1,7 @@
 "use client";
 
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function CreateDestination() {
   const [city, setCity] = useState("");
@@ -12,6 +12,38 @@ export default function CreateDestination() {
   const [longitude, setLongitude] = useState("");
 
   const params = useParams();
+  
+  useEffect(() => {
+
+    const fetchData =  async() => {
+      try{
+
+        const response = await fetch(`http://localhost:8080/admin/destination/${params.id}`, {
+          method: "GET"
+        })
+
+        const data = await response.json()
+
+        if (response.ok){
+
+          setCity(data.destination.city)
+          setCountry(data.destination.country)
+          setDescription(data.destination.description)
+          setImage(data.destination.image)
+          setLatitude(data.destination.latitude)
+          setLongitude(data.destination.longitude)
+
+        } else {
+          console.log(data)
+        }
+
+      } catch(err){
+        console.log(err)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -38,12 +70,12 @@ export default function CreateDestination() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Destination created successfully!", data);
+        console.log("Destination updated successfully!", data);
       } else {
-        console.error("Failed to create destination", data);
+        console.error("Failed to update destination", data);
       }
     } catch (error) {
-      console.error("Error creating destination:", error);
+      console.error("Error updating destination:", error);
     }
   };
 

@@ -29,7 +29,7 @@ export default function Destinations() {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/admin/delete-destionation",
+        `http://localhost:8080/admin/delete-destination/${id}`,
         {
           method: "DELETE",
         }
@@ -38,11 +38,11 @@ export default function Destinations() {
       const data = await response.json();
 
       if (response.ok) {
-        setDestinations((prev) => {
+        setDestinations((prev) => 
           prev.filter(
-            (destination) => destination.id !== data.deletedDestinationId
-          );
-        });
+            (destination) => destination.id !== data.destinationId
+          )
+        );
       } else {
         console.error("Failed to delete destination", data);
       }
@@ -68,7 +68,7 @@ export default function Destinations() {
             Update destination
           </a>
 
-          <button type="submit" onClick={() => handleDelete(destination.id)}>
+          <button  onClick={() => handleDelete(destination.id)}>
             Delete Destination
           </button>
         </div>

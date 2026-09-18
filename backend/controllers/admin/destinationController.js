@@ -117,7 +117,7 @@ exports.deleteDestination = async (req, res, next) => {
 
     return res
       .status(201)
-      .json({ message: "Destination deleted successfully!" });
+      .json({ message: "Destination deleted successfully!" , destinationId: destination.id });
   } catch (err) {
     next(err);
   }

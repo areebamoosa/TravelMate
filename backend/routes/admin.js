@@ -5,6 +5,7 @@ const destinationController = require("../controllers/admin/destinationControlle
 const placesController = require("../controllers/admin/placesController");
 const blogController = require("../controllers/admin/blogController");
 const tourController = require("../controllers/admin/toursController");
+const bookingController = require("../controllers/admin/bookingController");
 
 // Destination routes
 
@@ -55,5 +56,14 @@ router.get('/tours', tourController.getAllTours)
 router.put('/tour/:tourId', tourController.updateTour)
 
 router.delete('/tour/:tourId', tourController.deleteTour)
+
+
+// Booking routes
+
+router.get('/tour/bookings', bookingController.bookings)
+
+router.get('/tour/booking/:bookingId', bookingController.getSingleBooking)
+
+router.put('/tour/booking/:bookingId', bookingController.updateBookingStatus)
 
 module.exports = router;
