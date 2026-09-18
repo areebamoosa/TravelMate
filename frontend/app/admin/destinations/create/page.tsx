@@ -6,28 +6,34 @@ export default function CreateDestination() {
   const [city, setCity] = useState("");
   const [country, setCountry] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [latitude, setLatitude] = useState("");
   const [longitude, setLongitude] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+
+    formData.append("city", city);
+    formData.append("country", country);
+    formData.append("description", description);
+    formData.append("latitude", latitude);
+    formData.append("longitude", longitude);
+
+    if (image) {
+      formData.append("image", image);
+    }
+
     try {
-      const response = await fetch("http://localhost:8080/admin/create-destination", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          city,
-          country,
-          description,
-          image,
-          latitude,
-          longitude,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:8080/admin/create-destination",
+        {
+          method: "POST",
+
+          body: formData,
+        }
+      );
 
       const data = await response.json();
 
@@ -80,10 +86,10 @@ export default function CreateDestination() {
         <label htmlFor="image">
           Image:
           <input
-            type="text"
+            type="file"
             name="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
       </div>

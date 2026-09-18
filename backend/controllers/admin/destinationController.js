@@ -1,7 +1,7 @@
 const prisma = require("../../prisma");
 
 exports.postDestination = async (req, res, next) => {
-  const { city, country, description, image, latitude, longitude } = req.body;
+  const { city, country, description, latitude, longitude } = req.body;
 
   try {
     const destination = await prisma.destination.create({
@@ -9,7 +9,7 @@ exports.postDestination = async (req, res, next) => {
         city: city,
         country: country,
         description: description,
-        image: image,
+        image: req.file.path,
         latitude: latitude,
         longitude: longitude,
       },

@@ -34,7 +34,7 @@ model Destination {
   description String
   image String
   latitude String
-  longitude String
+  longitude String.
 
   places Place[]
 

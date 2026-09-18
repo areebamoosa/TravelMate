@@ -7,13 +7,15 @@ const blogController = require("../controllers/admin/blogController");
 const tourController = require("../controllers/admin/toursController");
 const bookingController = require("../controllers/admin/bookingController");
 
+const upload = require("../middlewares/upload")
+
 // Destination routes
 
-router.post("/create-destination", destinationController.postDestination);
-
-router.get("/destination/:destinationId", destinationController.getSingleDestination);
+router.post("/create-destination", upload.single("image") ,destinationController.postDestination);
 
 router.get("/destinations", destinationController.getAllDestinations);
+
+router.get("/destination/:destinationId", destinationController.getSingleDestination);
 
 router.put("/destination/:destinationId", destinationController.updateDestination);
 

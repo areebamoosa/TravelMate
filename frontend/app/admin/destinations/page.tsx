@@ -60,7 +60,7 @@ export default function Destinations() {
           <h2>{destination.city}</h2>
           <p>{destination.country}</p>
           <p>{destination.description}</p>
-          <p>{destination.image}</p>
+<img src={destination.image} alt="destination.city" />
           <p>{destination.latitude}</p>
           <p>{destination.longitude}</p>
 

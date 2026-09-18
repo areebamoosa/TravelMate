@@ -19,11 +19,13 @@ app.use((req, res, next) => {
 
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
+const userRoutes = require("./routes/user");
 
 const errorHandler = require("./middlewares/errorHandler");
 
 app.use(authRoutes);
 app.use("/admin", adminRoutes);
+app.use("/", userRoutes);
 
 app.use(errorHandler.notFound);
 app.use(errorHandler.errorHandler);

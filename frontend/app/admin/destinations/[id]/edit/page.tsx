@@ -118,10 +118,10 @@ export default function CreateDestination() {
         <label htmlFor="image">
           Update Image:
           <input
-            type="text"
+            type="file"
             name="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
       </div>
