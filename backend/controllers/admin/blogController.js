@@ -64,7 +64,7 @@ exports.updateBlog = async (req, res, next) => {
       return next(error);
     }
 
-    updateBlog = await prisma.blog.update({
+   const updatedBlog = await prisma.blog.update({
       where: { id: blogId },
       data: {
         title: updateTitle,
@@ -75,7 +75,7 @@ exports.updateBlog = async (req, res, next) => {
 
     return res
       .status(200)
-      .json({ message: "Blog updated succesfully", updateBlog });
+      .json({ message: "Blog updated succesfully", blog: updatedBlog });
   } catch (err) {
     next(err);
   }

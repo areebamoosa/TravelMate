@@ -11,27 +11,30 @@ export default function CreateBlog() {
     e.preventDefault();
 
     try {
-      const responsee = await fetch("http://localhost:8080/admin/create-blog", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          image,
-        }),
-      });
+      const response = await fetch(
+        "http://localhost:8080/admin/blogs/create-blog",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            image,
+          }),
+        }
+      );
 
-      const data = await responsee.json();
+      const data = await response.json();
 
-      if (responsee.ok) {
+      if (response.ok) {
         return console.log("Blog created successfully", data);
       } else {
         return console.log("Error in creating blog", data);
       }
     } catch (err) {
-      console.log("Error creating blog, pleasee try again.");
+      console.log(err);
     }
   };
 
@@ -71,6 +74,9 @@ export default function CreateBlog() {
           />
         </label>
       </div>
+
+      <button type="submit">Create Blog</button>
+
     </form>
   );
 }

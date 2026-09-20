@@ -32,7 +32,7 @@ export default function CreatePlace() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/admin/create-place", {
+      const response = await fetch("http://localhost:8080/admin/places/create-place", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +44,7 @@ export default function CreatePlace() {
           category,
           latitude,
           longitude,
-          destinationId,
+        destinationId:parseInt(destinationId),
         }),
       });
 

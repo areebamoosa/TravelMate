@@ -23,7 +23,7 @@ router.delete("/delete-destination/:destinationId", destinationController.delete
 
 // Places routes
 
-router.post("/create-place", placesController.createPlace);
+router.post("/places/create-place", placesController.createPlace);
 
 router.get("/place/:placeId", placesController.getSinglePlace);
 
@@ -36,11 +36,11 @@ router.delete("/delete-place/:placeId", placesController.deletePlace);
 
 // Blog routes
 
-router.post('/create-blog', blogController.postBlog )
-
-router.get('/blog/:blogId', blogController.getSingleBlog)
+router.post('/blogs/create-blog', blogController.postBlog )
 
 router.get("/blogs", blogController.allBlogs)
+
+router.get('/blog/:blogId', blogController.getSingleBlog)
 
 router.put("/blog/:blogId", blogController.updateBlog)
 
@@ -49,7 +49,7 @@ router.delete("/blog/:blogId", blogController.deleteBlog)
 
 // Tour routes
 
-router.post("/create-tour", tourController.createTour)
+router.post("/tours/create-tour", tourController.createTour)
 
 router.get('/tour/:tourId', tourController.getSingleTour)
 

@@ -69,10 +69,11 @@ exports.updateDestination = async (req, res, next) => {
     updatedCity,
     updatedCountry,
     updatedDescription,
-    updatedImage,
     updatedLatitude,
     updatedLongitude,
   } = req.body;
+
+  const updatedImage = req.file.path
 
   try {
     const destination = await prisma.destination.update({

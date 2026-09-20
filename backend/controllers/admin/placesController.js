@@ -1,7 +1,16 @@
 const prisma = require("../../prisma");
 
 exports.createPlace = async (req, res, next) => {
-  const { name, description, image, category, latitude, longitude } = req.body;
+  const {
+    name,
+    description,
+    category,
+    latitude,
+    longitude,
+    destinationId,
+  } = req.body;
+
+  const image = req.file.path;
 
   try {
     const place = await prisma.place.create({
@@ -12,6 +21,7 @@ exports.createPlace = async (req, res, next) => {
         category,
         latitude,
         longitude,
+        destinationId,
       },
     });
 
@@ -62,11 +72,12 @@ exports.getPlaces = async (req, res, next) => {
 exports.updatePlace = async (req, res, next) => {
   const placeId = parseInt(req.params.placeId);
   const updatedName = req.body.updatedName;
-  const updatedDescription = req.body.updatedName;
-  const updatedImage = req.body.updatedName;
-  const updatedCategory = req.body.updatedName;
-  const updatedLatitude = req.body.updatedName;
-  const updatedLongitude = req.body.updatedName;
+  const updatedDescription = req.body.updatedDescription;
+  const updatedImage = req.body.updatedImage;
+  const updatedCategory = req.body.updatedCategory;
+  const updatedLatitude = req.body.updatedLatitude;
+  const updatedLongitude = req.body.updatedLongitude;
+  const updatedDestinationId = req.body.destinationId;
 
   try {
     const place = await prisma.place.update({
@@ -77,6 +88,7 @@ exports.updatePlace = async (req, res, next) => {
         category: updatedCategory,
         longitude: updatedLongitude,
         latitude: updatedLatitude,
+        destinationId: updatedDestinationId,
       },
       where: { id: placeId },
     });

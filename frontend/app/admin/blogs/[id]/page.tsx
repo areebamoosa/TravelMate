@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useParams } from "next/navigation";
 
@@ -10,6 +10,24 @@ export default function UpdateBlog() {
   const [updateImage, setImage] = useState("");
 
   const params = useParams();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        `http://localhost:8080/admin/blog/${params.id}`
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setTitle(data.blog.title);
+        setDescription(data.blog.description);
+        setImage(data.blog.description);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -78,6 +96,8 @@ export default function UpdateBlog() {
           />
         </label>
       </div>
+
+      <button>Update</button>
     </form>
   );
 }

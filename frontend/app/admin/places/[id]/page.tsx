@@ -17,6 +17,25 @@ export default function CreatePlace() {
   const params = useParams();
 
   useEffect(() => {
+
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:8080/admin/place/${params.id}`)
+
+       const data = await response.json()
+
+       if (response.ok){
+        setName(data.place.name)
+        setDescription(data.place.description)
+        setImage(data.place.image)
+        setCategory(data.place.category)
+        setLatitude(data.place.latitude)
+        setLongitude(data.place.longitude)
+        setDestinationId(data.place.destinationId)
+       } else {
+        console.log("Failed fetching place's existing data")
+       }
+    }
+
     const fetchDestinations = async () => {
       const response = await fetch("http://localhost:8080/admin/destinations");
 
@@ -29,15 +48,17 @@ export default function CreatePlace() {
       }
     };
 
+    fetchData();
     fetchDestinations();
   }, []);
+
 
   const handleUpdate = async (e) => {
     e.preventDefault();
 
     try {
       const response = await fetch(
-        `http://localhost:8080/admin/update-place${params.id}`,
+        `http://localhost:8080/admin/update-place/${params.id}`,
         {
           method: "PUT",
           headers: {
@@ -50,7 +71,7 @@ export default function CreatePlace() {
             updatedCategory,
             updatedLatitude,
             updatedLongitude,
-            destinationId,
+           destinationId: parseInt( destinationId),
           }),
         }
       );

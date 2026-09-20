@@ -12,7 +12,7 @@ enum Role{
  Admin
  }
 
- enum status {
+ enum BookingStatus {
   Pending
   Confirmed
   Cancelled
@@ -34,9 +34,10 @@ model Destination {
   description String
   image String
   latitude String
-  longitude String.
+  longitude String
 
   places Place[]
+  tours Tour[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -96,7 +97,7 @@ model TourPlace {
 }
 
 model Booking {
-  id Int @id @default(@autoincrement())
+  id Int @id @default(autoincrement())
 
   userId Int
   user User @relation(fields: [userId], references: [id])
@@ -107,7 +108,7 @@ model Booking {
   date DateTime
   travelers Int
   totalPrice Int
-  status String @default("Pending")
+  status BookingStatus @default(Pending)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

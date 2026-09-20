@@ -22,27 +22,28 @@ export default function Places() {
     fetchPlaces();
   }, []);
 
-
   const handleDelete = async (id) => {
-    try{
-        const response = await fetch("http://localhost:8080/admin/delete-place", {
-            method: "DELETE",
-            headers: {
-            "Content-Type": "application/json",
-            },
-        });
-    
-        const data = await response.json();
-    
-        if (response.ok) {
-            SetPlaces((prev) => prev.filter((place) => place.id !== data.deletedPlaceId));
-        } else {
-            console.error("Failed to delete place", data);
+    try {
+      const response = await fetch(
+        `http://localhost:8080/admin/delete-place/${id}`,
+        {
+          method: "DELETE",
         }
-    } catch(err) {
-        console.log(err);
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        SetPlaces((prev) =>
+          prev.filter((place) => place.id !== data.deletedPlaceId)
+        );
+      } else {
+        console.error("Failed to delete place", data);
+      }
+    } catch (err) {
+      console.log(err);
     }
-  }
+  };
 
   return (
     <div>
@@ -57,6 +58,8 @@ export default function Places() {
             <p>{place.latitude}</p>
 
             <button onClick={() => handleDelete(place.id)}>Delete</button>
+
+            <a href={`/admin/places/${place.id}`}>Update</a>
           </div>
         );
       })}
