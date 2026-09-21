@@ -46,21 +46,24 @@ export default function Tour() {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8080/admin/create-tour", {
-        method: "POST",
-        headers: {
+      const response = await fetch(
+        "http://localhost:8080/admin/tours/create-tour",
+        {
+          method: "POST",
+          headers: {
             "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          description,
-          price,
-          image,
-          duration,
-          placeIds,
-          destinationId,
-        }),
-      });
+          },
+          body: JSON.stringify({
+            name,
+            description,
+            price: parseInt(price),
+            image,
+            duration: parseInt(duration),
+            placeIds,
+            destinationId: parseInt(destinationId),
+          }),
+        }
+      );
 
       const data = await response.json();
 
@@ -70,7 +73,7 @@ export default function Tour() {
         console.log("Error creating tour");
       }
     } catch (err) {
-      console.log("Error creating the form.");
+      console.log(err);
     }
   };
 
@@ -100,7 +103,7 @@ export default function Tour() {
         <div>
           <label htmlFor="price">Price</label>
           <input
-            type="text"
+            type="number"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}

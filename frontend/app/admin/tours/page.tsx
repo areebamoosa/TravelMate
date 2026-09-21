@@ -20,7 +20,7 @@ export default function Tour() {
   }, []);
 
   const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:8080/admin/tour/:${id}`, {
+    const response = await fetch(`http://localhost:8080/admin/tour/${id}`, {
       method: "Delete",
     });
 
@@ -28,6 +28,8 @@ export default function Tour() {
 
     if (response.ok) {
       console.log("Tour deleted successfully", data);
+
+      setTour((prev) => prev.filter ((tour) => tour.id !== id) )
     } else {
       console.log("Error deleting the tour");
     }
@@ -52,6 +54,8 @@ export default function Tour() {
           ))}
 
           <button onClick={() => handleDelete(tour.id)}>Delete</button>
+
+          <a href={`/admin/tours/${tour.id}`}>Update</a>
         </div>
       ))}
     </div>

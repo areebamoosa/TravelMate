@@ -38,10 +38,8 @@ export default function Destinations() {
       const data = await response.json();
 
       if (response.ok) {
-        setDestinations((prev) => 
-          prev.filter(
-            (destination) => destination.id !== data.destinationId
-          )
+        setDestinations((prev) =>
+          prev.filter((destination) => destination.id !== data.destinationId)
         );
       } else {
         console.error("Failed to delete destination", data);
@@ -60,7 +58,7 @@ export default function Destinations() {
           <h2>{destination.city}</h2>
           <p>{destination.country}</p>
           <p>{destination.description}</p>
-<img src={destination.image} alt="destination.city" />
+          <img src={destination.image} alt="destination.city" />
           <p>{destination.latitude}</p>
           <p>{destination.longitude}</p>
 
@@ -68,7 +66,7 @@ export default function Destinations() {
             Update destination
           </a>
 
-          <button  onClick={() => handleDelete(destination.id)}>
+          <button onClick={() => handleDelete(destination.id)}>
             Delete Destination
           </button>
         </div>

@@ -115,6 +115,7 @@ exports.updateTour = async (req, res, next) => {
     next(err);
   }
 };
+
 exports.deleteTour = async (req, res, next) => {
   const tourId = parseInt(req.params.tourId);
 
