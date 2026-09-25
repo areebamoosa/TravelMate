@@ -21,7 +21,7 @@ exports.createPlace = async (req, res, next) => {
         category,
         latitude,
         longitude,
-        destinationId,
+       destinationId: parseInt(destinationId),
       },
     });
 

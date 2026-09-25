@@ -23,7 +23,7 @@ router.delete("/delete-destination/:destinationId", destinationController.delete
 
 // Places routes
 
-router.post("/places/create-place", placesController.createPlace);
+router.post("/places/create-place", upload.single('image'), placesController.createPlace);
 
 router.get("/place/:placeId", placesController.getSinglePlace);
 

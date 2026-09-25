@@ -23,6 +23,9 @@ export default function Destinations() {
 
   return (
     <div>
+      <div>
+        <h1>Destinations</h1>
+      </div>
       {destinations.map((destination) => (
         <div key={destination.id}>
           <h1>{destination.city}</h1>

@@ -31,21 +31,23 @@ export default function CreatePlace() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData()
+
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('category',  category)
+    formData.append('latitude', latitude)
+    formData.append('longitude', longitude)
+    formData.append('destinationId',  destinationId)
+
+    if (image){
+      formData.append("image", image)
+    }
+
     try {
       const response = await fetch("http://localhost:8080/admin/places/create-place", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          description,
-          image,
-          category,
-          latitude,
-          longitude,
-        destinationId:parseInt(destinationId),
-        }),
+        body: formData,
       });
 
       const data = await response.json();
@@ -90,10 +92,10 @@ export default function CreatePlace() {
           {" "}
           Image:
           <input
-            type="text"
-            value={image}
+            type="file"
+            accept="image/*"
             name="image"
-            onChange={(e) => setImage(e.target.value)}
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </label>
       </div>
