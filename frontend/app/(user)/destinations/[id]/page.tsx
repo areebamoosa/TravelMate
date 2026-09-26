@@ -7,6 +7,8 @@ export default function Destination() {
   const [destination, setDestination] = useState(null);
   const [places, setPlaces] = useState([]);
 
+  const [tours, setTours] = useState([]);
+
   const params = useParams();
 
   useEffect(() => {
@@ -36,6 +38,18 @@ export default function Destination() {
       }
     };
 
+    const fetchTours = async () => {
+      const response = await fetch(`http://localhost:8080/tours/${params.id}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setTours(data.tours);
+      } else {
+        console.log("Error fetching tours of this destination");
+      }
+    };
+    fetchTours();
+
     fetchDestination();
     fetchDestinationPlaces();
   }, [params.id]);
@@ -54,7 +68,7 @@ export default function Destination() {
       )}
 
       {places.map((place) => (
-        <div key={places.id}>
+        <div key={place.id}>
           <h1>{place.name}</h1>
           <h1>{place.description}</h1>
           <h1>{place.category}</h1>
@@ -62,6 +76,20 @@ export default function Destination() {
           <h1>{place.longitude}</h1>
 
           <img src={place.image} alt={place.name} />
+        </div>
+      ))}
+
+      <h1>See availaible tours for this destination:</h1>
+
+      {tours.map((tour) => (
+        <div key={tour.id}>
+          <h1>{tour.name}</h1>
+          <h1>{tour.price}</h1>
+          <h1>{tour.duration}</h1>
+          <h1>{tour.durationUnit}</h1>
+          <img src={tour.image} alt={tour.name} />
+
+          <a href={`/tours/${tour.id}`}>See details of Tour</a>
         </div>
       ))}
     </div>

@@ -138,10 +138,10 @@ export default function Tour() {
         <div>
           <label htmlFor="updateImage">Image</label>
           <input
-            type="text"
+            type="file"
             id="updateImage"
-            value={updatedImage}
-            onChange={(e) => setImage(e.target.value)}
+name="image"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
         <div>

@@ -49,7 +49,7 @@ router.delete("/blog/:blogId", blogController.deleteBlog)
 
 // Tour routes
 
-router.post("/tours/create-tour", tourController.createTour)
+router.post("/tours/create-tour", upload.single("image"), tourController.createTour)
 
 router.get('/tour/:tourId', tourController.getSingleTour)
 

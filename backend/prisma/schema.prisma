@@ -78,6 +78,7 @@ model Tour {
   price Int
   image String
   duration Int
+  durationUnit String
 
   destinationId Int
   destination Destination @relation(fields: [destinationId], references: [id])

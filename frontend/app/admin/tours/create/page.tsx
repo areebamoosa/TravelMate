@@ -12,6 +12,7 @@ export default function Tour() {
   const [destinations, setDestinations] = useState([]);
   const [places, setPlaces] = useState([]);
   const [placeIds, setPlaceIds] = useState([]);
+  const [durationUnit, setDurationUnit] = useState("");
 
   useEffect(() => {
     const fetchDestinations = async () => {
@@ -46,22 +47,22 @@ export default function Tour() {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("image", image);
+      formData.append("duration", duration);
+      formData.append("destinationId", destinationId);
+      formData.append("placeIds", JSON.stringify(placeIds));
+      formData.append("durationUnit", durationUnit);
+
       const response = await fetch(
         "http://localhost:8080/admin/tours/create-tour",
         {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name,
-            description,
-            price: parseInt(price),
-            image,
-            duration: parseInt(duration),
-            placeIds,
-            destinationId: parseInt(destinationId),
-          }),
+          body: formData,
         }
       );
 
@@ -112,10 +113,10 @@ export default function Tour() {
         <div>
           <label htmlFor="image">Image</label>
           <input
-            type="text"
-            id="image"
-            value={image}
-            onChange={(e) => setImage(e.target.value)}
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
         <div>
@@ -126,6 +127,23 @@ export default function Tour() {
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
           />
+        </div>
+
+        <div>
+          <select
+            value={durationUnit}
+            onChange={(e) => setDurationUnit(e.target.value)}
+          >
+            <option>Set Duration Unit</option>
+
+            <option value="hous">Hours</option>
+            <option value="day">Day</option>
+            <option value="days">Days</option>
+            <option value="week">Week</option>
+            <option value="weeks">Weeks</option>
+            <option value="month">Month</option>
+            <option value="months">Months</option>
+          </select>
         </div>
 
         <div>
@@ -156,6 +174,8 @@ export default function Tour() {
               setPlaceIds(selectedIds);
             }}
           >
+            <option value="">Select Places: </option>
+
             {places.map((place) => (
               <option value={place.id} key={place.id}>
                 {place.name}

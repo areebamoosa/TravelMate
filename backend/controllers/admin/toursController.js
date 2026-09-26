@@ -1,20 +1,32 @@
 const prisma = require("../../prisma");
 
 exports.createTour = async (req, res, next) => {
-  const { name, description, price, image, duration, destinationId, placeIds } =
-    req.body;
+  const {
+    name,
+    description,
+    price,
+    duration,
+    destinationId,
+    placeIds,
+    durationUnit,
+  } = req.body;
+
+  const placeIdsAray = JSON.parse(placeIds);
+
+  const image = req.file.path;
   try {
     const tour = await prisma.tour.create({
       data: {
         name: name,
         description: description,
-        price: price,
+        price: parseInt(price),
         image: image,
-        duration: duration,
+        duration: parseInt(duration),
         destinationId: parseInt(destinationId),
+        durationUnit: durationUnit,
 
         places: {
-          create: placeIds.map((placeId) => ({
+          create: placeIdsAray.map((placeId) => ({
             place: {
               connect: {
                 id: parseInt(placeId),
@@ -35,9 +47,12 @@ exports.getSingleTour = async (req, res, next) => {
   const tourId = parseInt(req.params.tourId);
 
   try {
-    const tour = await prisma.tour.findUnique({ where: { id: tourId }, include: {
-      places: true,
-    } });
+    const tour = await prisma.tour.findUnique({
+      where: { id: tourId },
+      include: {
+        places: true,
+      },
+    });
 
     if (!tour) {
       const error = new Error("Tour not found");
@@ -53,13 +68,15 @@ exports.getSingleTour = async (req, res, next) => {
 
 exports.getAllTours = async (req, res, next) => {
   try {
-    const tours = await prisma.tour.findMany({include: {
-      places:{
-        include: {
-          place: true,
-        }
-      }
-    }});
+    const tours = await prisma.tour.findMany({
+      include: {
+        places: {
+          include: {
+            place: true,
+          },
+        },
+      },
+    });
 
     if (!tours) {
       const error = new Error("Tour not found");
@@ -80,11 +97,12 @@ exports.updateTour = async (req, res, next) => {
     updatedDescription,
     updatedPrice,
     updatedPlaces,
-    updatedImage,
     updatedDuration,
     destinationId,
     updatedPlaceIds,
   } = req.body;
+
+  const updatedImage = req.image.file;
 
   try {
     const tour = await prisma.tour.update({

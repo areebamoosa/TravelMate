@@ -16,8 +16,7 @@ export default function Destinations() {
       } else {
         console.log("Error fetching destinations");
       }
-    };
-
+    }; 
     fetchDestinations();
   }, []);
 
