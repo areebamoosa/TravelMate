@@ -105,52 +105,64 @@ export default function Tour() {
 
   return (
     <div>
-      <form onSubmit={handleUpdate}>
+      <form
+        onSubmit={handleUpdate}
+        className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+      >
         <div>
-          <label htmlFor="updateName">Name</label>
+          <h1 className="text-2xl font-semibold text-stone-900">Update tour</h1>
+          <p className="mt-1 text-sm text-stone-500">Change the tour details below.</p>
+        </div>
+        <div>
+          <label htmlFor="updateName" className="block text-sm font-medium text-stone-700">Name</label>
           <input
             type="text"
             id="updateName"
             value={updatedName}
             onChange={(e) => setName(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
         <div>
-          <label htmlFor="updateDescription">Description</label>
+          <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">Description</label>
           <input
             type="text"
             id="updateDescription"
             value={updatedDescription}
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
         <div>
-          <label htmlFor="updatePrice">Price</label>
+          <label htmlFor="updatePrice" className="block text-sm font-medium text-stone-700">Price</label>
           <input
             type="text"
             id="updatePrice"
             value={updatedPrice}
             onChange={(e) => setPrice(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
         <div>
-          <label htmlFor="updateImage">Image</label>
+          <label htmlFor="updateImage" className="block text-sm font-medium text-stone-700">Image</label>
           <input
             type="file"
             id="updateImage"
-name="image"
+            name="image"
             onChange={(e) => setImage(e.target.files[0])}
+            className="mt-1 block w-full text-sm text-stone-600"
           />
         </div>
         <div>
-          <label htmlFor="updateDuration">Duration</label>
+          <label htmlFor="updateDuration" className="block text-sm font-medium text-stone-700">Duration</label>
           <input
             type="text"
             id="updateDuration"
             value={updatedDuration}
             onChange={(e) => setDuration(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
@@ -158,6 +170,7 @@ name="image"
           <select
             value={destinationId}
             onChange={(e) => setDestinationId(e.target.value)}
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           >
             <option value="">Select destination: </option>
 
@@ -181,6 +194,7 @@ name="image"
 
               setPlaceIds(selectedIds);
             }}
+            className="min-h-32 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           >
             {places.map((place) => (
               <option value={place.id} key={place.id}>
@@ -190,7 +204,12 @@ name="image"
           </select>
         </div>
 
-        <button type="submit">Update tour</button>
+        <button
+          type="submit"
+          className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+        >
+          Update tour
+        </button>
       </form>
     </div>
   );

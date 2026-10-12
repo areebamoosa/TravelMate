@@ -63,20 +63,28 @@ export default function CreatePlace() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+    >
       <div>
-        <label htmlFor="name">
+        <h1 className="text-2xl font-semibold text-stone-900">Create place</h1>
+        <p className="mt-1 text-sm text-stone-500">Add a spot inside a destination.</p>
+      </div>
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-stone-700">
           Name:
           <input
             type="text"
             value={name}
             name="name"
             onChange={(e) => setName(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="description">
+        <label htmlFor="description" className="block text-sm font-medium text-stone-700">
           {" "}
           Description:
           <input
@@ -84,11 +92,12 @@ export default function CreatePlace() {
             value={description}
             name="description"
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="image">
+        <label htmlFor="image" className="block text-sm font-medium text-stone-700">
           {" "}
           Image:
           <input
@@ -96,11 +105,16 @@ export default function CreatePlace() {
             accept="image/*"
             name="image"
             onChange={(e) => setImage(e.target.files[0])}
+            className="mt-1 block w-full text-sm text-stone-600"
           />
         </label>
       </div>
       <div>
-        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+        >
           <option value="">Select Category</option>
           <option value="restaurant">Restaurant</option>
           <option value="hotel">Hotels</option>
@@ -114,6 +128,7 @@ export default function CreatePlace() {
         <select
           value={destinationId}
           onChange={(e) => setDestinationId(e.target.value)}
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
         >
           <option value="">Select destination:</option>
 
@@ -125,30 +140,35 @@ export default function CreatePlace() {
         </select>
       </div>
 
-      <div>
-        <label htmlFor="latitude">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label htmlFor="latitude" className="block text-sm font-medium text-stone-700">
           Latitude:
           <input
             type="text"
             value={latitude}
             name="latitude"
             onChange={(e) => setLatitude(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
-      </div>
-      <div>
-        <label htmlFor="longitude">
+        <label htmlFor="longitude" className="block text-sm font-medium text-stone-700">
           Longitude:
           <input
             type="text"
             value={longitude}
             name="longitude"
             onChange={(e) => setLongitude(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
 
-      <button type="submit">Create Place</button>
+      <button
+        type="submit"
+        className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+      >
+        Create Place
+      </button>
     </form>
   );
 }

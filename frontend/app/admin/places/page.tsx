@@ -47,22 +47,52 @@ export default function Places() {
 
   return (
     <div>
-      {Places.map((place) => {
-        return (
-          <div key={place.id}>
-            <h2>{place.name}</h2>
-            <p>{place.description}</p>
-            <p>{place.image}</p>
-            <p>{place.category}</p>
-            <p>{place.longitude}</p>
-            <p>{place.latitude}</p>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold text-stone-900">Places</h1>
+        <a
+          href="/admin/places/create"
+          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+        >
+          Create
+        </a>
+      </div>
 
-            <button onClick={() => handleDelete(place.id)}>Delete</button>
+      <div className="mt-6 grid gap-4">
+        {Places.map((place) => {
+          return (
+            <div
+              key={place.id}
+              className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
+            >
+              <h2 className="text-lg font-semibold text-stone-900">{place.name}</h2>
+              <p className="mt-1 text-sm text-stone-600">{place.description}</p>
+              <p className="mt-2 break-all text-xs text-stone-400">{place.image}</p>
+              <p className="mt-3 inline-block rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800">
+                {place.category}
+              </p>
+              <div className="mt-2 flex gap-4 text-xs text-stone-500">
+                <p>Lng {place.longitude}</p>
+                <p>Lat {place.latitude}</p>
+              </div>
 
-            <a href={`/admin/places/${place.id}`}>Update</a>
-          </div>
-        );
-      })}
+              <div className="mt-4 flex gap-3 text-sm">
+                <button
+                  onClick={() => handleDelete(place.id)}
+                  className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                >
+                  Delete
+                </button>
+                <a
+                  href={`/admin/places/${place.id}`}
+                  className="rounded-lg border border-stone-300 px-3 py-1.5 font-medium text-stone-700 hover:bg-stone-50"
+                >
+                  Update
+                </a>
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

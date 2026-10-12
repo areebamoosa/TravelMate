@@ -80,52 +80,64 @@ export default function Tour() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form
+        onSubmit={handleSubmit}
+        className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+      >
         <div>
-          <label htmlFor="name">Name</label>
+          <h1 className="text-2xl font-semibold text-stone-900">Create tour</h1>
+          <p className="mt-1 text-sm text-stone-500">Set the price, length, and places.</p>
+        </div>
+        <div>
+          <label htmlFor="name" className="block text-sm font-medium text-stone-700">Name</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
         <div>
-          <label htmlFor="description">Description</label>
+          <label htmlFor="description" className="block text-sm font-medium text-stone-700">Description</label>
           <input
             type="text"
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
         <div>
-          <label htmlFor="price">Price</label>
+          <label htmlFor="price" className="block text-sm font-medium text-stone-700">Price</label>
           <input
             type="number"
             id="price"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
         <div>
-          <label htmlFor="image">Image</label>
+          <label htmlFor="image" className="block text-sm font-medium text-stone-700">Image</label>
           <input
             type="file"
             name="image"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
+            className="mt-1 block w-full text-sm text-stone-600"
           />
         </div>
         <div>
-          <label htmlFor="duration">Duration</label>
+          <label htmlFor="duration" className="block text-sm font-medium text-stone-700">Duration</label>
           <input
             type="text"
             id="duration"
             value={duration}
             onChange={(e) => setDuration(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </div>
 
@@ -133,6 +145,7 @@ export default function Tour() {
           <select
             value={durationUnit}
             onChange={(e) => setDurationUnit(e.target.value)}
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           >
             <option>Set Duration Unit</option>
 
@@ -150,6 +163,7 @@ export default function Tour() {
           <select
             value={destinationId}
             onChange={(e) => setDestinationId(e.target.value)}
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           >
             <option value="">Select destination: </option>
 
@@ -173,6 +187,7 @@ export default function Tour() {
 
               setPlaceIds(selectedIds);
             }}
+            className="min-h-32 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           >
             <option value="">Select Places: </option>
 
@@ -184,7 +199,12 @@ export default function Tour() {
           </select>
         </div>
 
-        <button type="submit">Create tour</button>
+        <button
+          type="submit"
+          className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+        >
+          Create tour
+        </button>
       </form>
     </div>
   );

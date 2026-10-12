@@ -23,18 +23,35 @@ export default function Destinations() {
   return (
     <div>
       <div>
-        <h1>Destinations</h1>
+        <h1 className="text-2xl font-semibold text-stone-900">Destinations</h1>
+        <p className="mt-1 text-sm text-stone-500">
+          Browse cities and countries to start a trip.
+        </p>
       </div>
-      {destinations.map((destination) => (
-        <div key={destination.id}>
-          <h1>{destination.city}</h1>
-          <h1>{destination.country}</h1>
-
-          <img src={destination.image} alt={destination.city} />
-
-          <a href={`/destinations/${destination.id}`}>See details</a>
-        </div>
-      ))}
+      <div className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {destinations.map((destination) => (
+          <div
+            key={destination.id}
+            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+          >
+            <img
+              src={destination.image}
+              alt={destination.city}
+              className="h-44 w-full object-cover"
+            />
+            <div className="p-4">
+              <h1 className="text-lg font-semibold text-stone-900">{destination.city}</h1>
+              <h1 className="text-sm text-stone-500">{destination.country}</h1>
+              <a
+                href={`/destinations/${destination.id}`}
+                className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+              >
+                See details
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

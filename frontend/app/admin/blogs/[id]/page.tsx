@@ -61,9 +61,16 @@ export default function UpdateBlog() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+    >
       <div>
-        <label htmlFor="updateTitle">
+        <h1 className="text-2xl font-semibold text-stone-900">Update blog</h1>
+        <p className="mt-1 text-sm text-stone-500">Edit the title, story, and image.</p>
+      </div>
+      <div>
+        <label htmlFor="updateTitle" className="block text-sm font-medium text-stone-700">
           Title:
           <input
             type="text"
@@ -71,21 +78,23 @@ export default function UpdateBlog() {
             required
             value={updateTitle}
             onChange={(e) => setTitle(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="updateDescription">
+        <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">
           Description:
           <textarea
             id="updateDescription"
             value={updateDescription}
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 min-h-28 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           ></textarea>
         </label>
       </div>
       <div>
-        <label htmlFor="updateDescription">
+        <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">
           Image:
           <input
             type="text"
@@ -93,11 +102,14 @@ export default function UpdateBlog() {
             required
             value={updateDescription}
             onChange={(e) => setImage(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
 
-      <button>Update</button>
+      <button className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800">
+        Update
+      </button>
     </form>
   );
 }

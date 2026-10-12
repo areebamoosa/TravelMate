@@ -4,13 +4,18 @@ module.exports = (req, res, next) => {
   try {
     const token = req.cookies.auth;
     if (!token) {
-      req.user = null;
-      next();
+      return res.status(401).json({
+        message: "Please log in first."
+    });
+
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.user = decoded;
+   return next()
   } catch (error) {
-    console.log(error);
-    next();
+    return res.status(401).json({
+      message: "Invalid or expired token. Please log in again."
+  });
+
   }
 };

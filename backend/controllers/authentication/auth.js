@@ -53,7 +53,7 @@ exports.login = async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: user.id }, JWT_SECRET_KEY, {
-      expiresIn: "124",
+      expiresIn: "1d",
     });
 
     res.cookie("auth", token, {
@@ -62,7 +62,7 @@ exports.login = async (req, res, next) => {
       sameSite: "lax",
     });
 
-    return res.json({ message: "Logged In successfully!" });
+    return res.json({ message: "Logged In successfully!", role: user.role });
   } catch (err) {
     console.log(err);
   }

@@ -57,41 +57,83 @@ export default function Destination() {
   return (
     <div>
       {destination && (
-        <div>
-          <h1>{destination.city}</h1>
-          <h1>{destination.country}</h1>
-
-          <p>{destination.description}</p>
-
-          <img src={destination.image} alt={destination.city} />
+        <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm">
+          <img
+            src={destination.image}
+            alt={destination.city}
+            className="h-72 w-full object-cover"
+          />
+          <div className="p-6">
+            <h1 className="text-3xl font-semibold text-stone-900">{destination.city}</h1>
+            <h1 className="mt-1 text-sm font-medium uppercase tracking-wide text-teal-700">
+              {destination.country}
+            </h1>
+            <p className="mt-4 max-w-3xl leading-relaxed text-stone-600">
+              {destination.description}
+            </p>
+          </div>
         </div>
       )}
 
-      {places.map((place) => (
-        <div key={place.id}>
-          <h1>{place.name}</h1>
-          <h1>{place.description}</h1>
-          <h1>{place.category}</h1>
-          <h1>{place.latitude}</h1>
-          <h1>{place.longitude}</h1>
+      <h2 className="mt-10 text-xl font-semibold text-stone-900">Places</h2>
+      <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {places.map((place) => (
+          <div
+            key={place.id}
+            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+          >
+            <img
+              src={place.image}
+              alt={place.name}
+              className="h-40 w-full object-cover"
+            />
+            <div className="p-4">
+              <h1 className="text-lg font-semibold text-stone-900">{place.name}</h1>
+              <h1 className="mt-1 text-sm text-stone-600">{place.description}</h1>
+              <h1 className="mt-3 inline-block rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800">
+                {place.category}
+              </h1>
+              <div className="mt-3 text-xs text-stone-500">
+                <h1>Lat {place.latitude}</h1>
+                <h1>Lng {place.longitude}</h1>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
 
-          <img src={place.image} alt={place.name} />
-        </div>
-      ))}
+      <h1 className="mt-10 text-xl font-semibold text-stone-900">
+        See availaible tours for this destination:
+      </h1>
 
-      <h1>See availaible tours for this destination:</h1>
-
-      {tours.map((tour) => (
-        <div key={tour.id}>
-          <h1>{tour.name}</h1>
-          <h1>{tour.price}</h1>
-          <h1>{tour.duration}</h1>
-          <h1>{tour.durationUnit}</h1>
-          <img src={tour.image} alt={tour.name} />
-
-          <a href={`/tours/${tour.id}`}>See details of Tour</a>
-        </div>
-      ))}
+      <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {tours.map((tour) => (
+          <div
+            key={tour.id}
+            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+          >
+            <img
+              src={tour.image}
+              alt={tour.name}
+              className="h-40 w-full object-cover"
+            />
+            <div className="p-4">
+              <h1 className="text-lg font-semibold text-stone-900">{tour.name}</h1>
+              <h1 className="mt-2 text-base font-semibold text-teal-800">{tour.price}</h1>
+              <div className="mt-1 flex gap-1 text-sm text-stone-500">
+                <h1>{tour.duration}</h1>
+                <h1>{tour.durationUnit}</h1>
+              </div>
+              <a
+                href={`/tours/${tour.id}`}
+                className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+              >
+                See details of Tour
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

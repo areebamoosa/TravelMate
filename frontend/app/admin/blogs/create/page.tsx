@@ -39,9 +39,16 @@ export default function CreateBlog() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+    >
       <div>
-        <label htmlFor="title">
+        <h1 className="text-2xl font-semibold text-stone-900">Create blog</h1>
+        <p className="mt-1 text-sm text-stone-500">Write a short travel story.</p>
+      </div>
+      <div>
+        <label htmlFor="title" className="block text-sm font-medium text-stone-700">
           Title:
           <input
             type="text"
@@ -49,21 +56,23 @@ export default function CreateBlog() {
             required
             value={title}
             onChange={(e) => setTitle(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="description">
+        <label htmlFor="description" className="block text-sm font-medium text-stone-700">
           Description:
           <textarea
             id="description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 min-h-28 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           ></textarea>
         </label>
       </div>
       <div>
-        <label htmlFor="image">
+        <label htmlFor="image" className="block text-sm font-medium text-stone-700">
           Image:
           <input
             type="text"
@@ -71,11 +80,17 @@ export default function CreateBlog() {
             required
             value={image}
             onChange={(e) => setImage(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
 
-      <button type="submit">Create Blog</button>
+      <button
+        type="submit"
+        className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+      >
+        Create Blog
+      </button>
 
     </form>
   );

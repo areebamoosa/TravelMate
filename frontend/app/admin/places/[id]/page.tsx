@@ -89,37 +89,47 @@ export default function CreatePlace() {
   };
 
   return (
-    <form onSubmit={handleUpdate}>
+    <form
+      onSubmit={handleUpdate}
+      className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+    >
       <div>
-        <label htmlFor="name">
+        <h1 className="text-2xl font-semibold text-stone-900">Update place</h1>
+        <p className="mt-1 text-sm text-stone-500">Edit this place and save the changes.</p>
+      </div>
+      <div>
+        <label htmlFor="name" className="block text-sm font-medium text-stone-700">
           Update Name:
           <input
             type="text"
             value={updatedName}
             name="updatedName"
             onChange={(e) => setName(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="description">
+        <label htmlFor="description" className="block text-sm font-medium text-stone-700">
           Update Description:
           <input
             type="text"
             value={updatedDescription}
             name="updatedDescription"
             onChange={(e) => setDescription(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
       <div>
-        <label htmlFor="image">
+        <label htmlFor="image" className="block text-sm font-medium text-stone-700">
           Update Image:
           <input
             type="text"
             value={updatedImage}
             name="updatedImage"
             onChange={(e) => setImage(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
@@ -127,6 +137,7 @@ export default function CreatePlace() {
         <select
           value={updatedCategory}
           onChange={(e) => setCategory(e.target.value)}
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
         >
           <option value="">Select Category</option>
           <option value="restaurant">Restaurant</option>
@@ -141,6 +152,7 @@ export default function CreatePlace() {
         <select
           value={destinationId}
           onChange={(e) => setDestinationId(e.target.value)}
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
         >
           <option value="">Select destination:</option>
 
@@ -152,30 +164,35 @@ export default function CreatePlace() {
         </select>
       </div>
 
-      <div>
-        <label htmlFor="latitude">
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label htmlFor="latitude" className="block text-sm font-medium text-stone-700">
           Update Latitude:
           <input
             type="text"
             value={updatedLatitude}
             name="updatedLatitude"
             onChange={(e) => setLatitude(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
-      </div>
-      <div>
-        <label htmlFor="longitude">
+        <label htmlFor="longitude" className="block text-sm font-medium text-stone-700">
           Update Longitude:
           <input
             type="text"
             value={updatedLongitude}
             name="updatedLongitude"
             onChange={(e) => setLongitude(e.target.value)}
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
           />
         </label>
       </div>
 
-      <button type="submit">Update Place</button>
+      <button
+        type="submit"
+        className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+      >
+        Update Place
+      </button>
     </form>
   );
 }

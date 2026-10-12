@@ -1,40 +1,91 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 export default function Bookings() {
-    const [bookings, setBookings] = useState([])
+  const [bookings, setBookings] = useState([]);
 
-    useEffect(() => {
-        const fetchBookings = async () => {
-            const response = await fetch("http://localhost:8080/admin/tour/bookings", {
-                method: "GET"
-            })
+  useEffect(() => {
+    const fetchBookings = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:8080/admin/tour/bookings",
+          {
+            method: "GET",
+          }
+        );
 
-            const data = await response.json()
+        const data = await response.json();
 
-            if (response.ok){
-                setBookings(data.bookings)
-            } else {
-                console.log("Failed to fetch bookings")
-            }
+        if (response.ok) {
+          setBookings(data.bookings);
+        } else {
+          console.log("Failed to fetch bookings");
         }
+      } catch (err) {
+        console.error("Fetch Error: ", err);
+      }
+    };
 
-        fetchBookings()
-    }, [])
+    fetchBookings();
+  }, []);
 
-    return (
-        <div>
+  return (
+    <div>
+      <h1 className="text-2xl font-semibold text-stone-900">Bookings</h1>
+      <p className="mt-1 text-sm text-stone-500">
+        Tour reservations waiting for review.
+      </p>
 
-            {bookings.map((booking) => (
-                <div key={booking.id}>
-                    <h1>{booking.date}</h1>
-                    <h1>{booking.status}</h1>
-                    <h1>{booking.totalPrice}</h1>
-                    <h1>{booking.travelers}</h1>
-                </div>
-            ))}
-
-        </div>
-    )
+      <div className="mt-6 grid gap-4">
+        {bookings.map((booking) => (
+          <div
+            key={booking.id}
+            className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
+          >
+            <div className="grid gap-3 sm:grid-cols-4">
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-500">
+                  Date
+                </p>
+                <h1 className="mt-1 text-sm font-medium text-stone-900">
+                  {booking.date}
+                </h1>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-500">
+                  Status
+                </p>
+                <h1 className="mt-1 inline-block rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800">
+                  {booking.status}
+                </h1>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-500">
+                  Total
+                </p>
+                <h1 className="mt-1 text-sm font-semibold text-teal-800">
+                  {booking.totalPrice}
+                </h1>
+              </div>
+              <div>
+                <p className="text-xs uppercase tracking-wide text-stone-500">
+                  Travelers
+                </p>
+                <h1 className="mt-1 text-sm font-medium text-stone-900">
+                  {booking.travelers}
+                </h1>
+              </div>
+            </div>
+            <a
+              href={`/admin/bookings/${booking.id}`}
+              className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+            >
+              View booking
+            </a>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
