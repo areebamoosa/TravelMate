@@ -23,9 +23,6 @@ router.get("/places/:destinationId", placesController.getDestinationPlaces);
 router.get("/place/:placeId", placesController.getSinglePlace);
 
 
-// Booking controller
-
-router.get('/bookings', isAuth, bookingController.bookings)
 
 // Tours routes
 
@@ -34,5 +31,9 @@ router.get("/tours", toursController.getAllTours);
 router.get("/tour/:tourId", toursController.getSingleTour);
 
 router.get("/tours/:destinationId", toursController.getDestinationTours);
+
+// Tour booking routes
+
+router.get('/bookings', isAuth, bookingController.bookings)
 
 module.exports = router;

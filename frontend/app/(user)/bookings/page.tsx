@@ -9,11 +9,12 @@ export default function Bookings() {
     const fetchBookings = async (e) => {
       try {
         const response = await fetch("http://localhost:8080/bookings", {
-            credentials: "include"
+          credentials: "include",
         });
 
         if (response.ok) {
           const data = await response.json();
+          console.log("Bookings data: ", data);
           setBookings(data.bookings);
         } else {
           console.log("Error fetching bookings");
@@ -30,15 +31,15 @@ export default function Bookings() {
     <div>
       <h1>My Bookings</h1>
 
-      {bookings.map((booking) => {
+      {bookings.map((booking) => (
         <div key={booking.id}>
           <h1>{booking.tour.name}</h1>
           <h1>{booking.travelers}</h1>
           <h1>{booking.totalPrice}</h1>
           <h1>{booking.status}</h1>
-          <h1>{booking.date}</h1>
-        </div>;
-      })}
+          <h1>{new Date(booking.date).toLocaleDateString()}</h1>
+        </div>
+      ))}
     </div>
   );
 }

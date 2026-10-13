@@ -28,7 +28,7 @@ export default function Bookings() {
     };
 
     fetchBooking();
-  }, []);
+  }, [params.id]);
 
   const handleStatus = async (status) => {
     try {
@@ -40,13 +40,18 @@ export default function Bookings() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            status: status,
+            bookingStatus: status,
           }),
         }
       );
 
       if (response.ok) {
         console.log("Status of booking updated successfully");
+
+        setBooking((prevBooking) => ({
+          ...prevBooking, 
+          status: status
+        }))
       } else {
         console.log("Could not update status of booking");
       }

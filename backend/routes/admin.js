@@ -6,6 +6,7 @@ const placesController = require("../controllers/admin/placesController");
 const blogController = require("../controllers/admin/blogController");
 const tourController = require("../controllers/admin/toursController");
 const bookingController = require("../controllers/admin/bookingController");
+const weatherController = require("../controllers/admin/weatherController");
 
 const isAuth = require("../middlewares/auth")
 
@@ -75,5 +76,8 @@ router.get('/tours', tourController.getAllTours)
 router.put('/tour/:tourId', tourController.updateTour)
 
 router.delete('/tour/:tourId', tourController.deleteTour)
+
+
+router.get('/weather', weatherController.getWeather)
 
 module.exports = router;

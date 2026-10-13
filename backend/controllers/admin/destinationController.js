@@ -12,7 +12,6 @@ exports.postDestination = async (req, res, next) => {
         image: req.file.path,
         latitude: latitude,
         longitude: longitude,
-
       },
     });
     return res
@@ -74,9 +73,19 @@ exports.updateDestination = async (req, res, next) => {
     updatedLongitude,
   } = req.body;
 
-  const updatedImage = req.file.path
-
   try {
+    const existingDestination = await prisma.destination.findUnique({
+      where: { id: destinationId },
+    });
+
+    if (!existingDestination) {
+      const error = new Error("Destination not found");
+      error.status = 404;
+      return next(error);
+    }
+
+    const updatedImage = req.file ? req.file.path : existingDestination.image;
+
     const destination = await prisma.destination.update({
       where: { id: destinationId },
       data: {
@@ -119,7 +128,10 @@ exports.deleteDestination = async (req, res, next) => {
 
     return res
       .status(201)
-      .json({ message: "Destination deleted successfully!" , destinationId: destination.id });
+      .json({
+        message: "Destination deleted successfully!",
+        destinationId: destination.id,
+      });
   } catch (err) {
     next(err);
   }
