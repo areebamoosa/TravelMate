@@ -1,3 +1,5 @@
+import AuthMenu from "@/app/components/AuthMenu";
+
 export default function AdminLayout({
     children,
   }: {
@@ -36,6 +38,7 @@ export default function AdminLayout({
             <a href="/" className="whitespace-nowrap rounded-lg px-3 py-2 text-stone-400 hover:bg-stone-800 hover:text-white sm:mt-4">
               Back to site
             </a>
+            <AuthMenu variant="admin" />
           </nav>
         </aside>
         <main className="min-w-0 flex-1 p-4 sm:p-8">{children}</main>

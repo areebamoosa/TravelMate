@@ -40,8 +40,18 @@ export default function Weather({ latitude, longitude }: WeatherProps) {
     fetchWeather();
   }, [latitude, longitude]);
 
-  if (loading) return <p>Loading weather...</p>;
-  if (error) return <p>{error}</p>;
+  if (loading)
+    return (
+      <section className="mt-10 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+        <p className="text-sm text-stone-500">Loading weather...</p>
+      </section>
+    );
+  if (error)
+    return (
+      <section className="mt-10 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+        <p className="text-sm text-red-600">{error}</p>
+      </section>
+    );
   if (!weather) return null;
 
   return (

@@ -88,11 +88,13 @@ export default function Destination() {
                 Explore on Map
               </h2>
 
-              <TravelMapLoader
-                latitude={Number(destination.latitude)}
-                longitude={Number(destination.longitude)}
-                name={`${destination.city}, ${destination.country}`}
-              />
+              <div className="overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
+                <TravelMapLoader
+                  latitude={Number(destination.latitude)}
+                  longitude={Number(destination.longitude)}
+                  name={`${destination.city}, ${destination.country}`}
+                />
+              </div>
             </section>
           )}
         </>

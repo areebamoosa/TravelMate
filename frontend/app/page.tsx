@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AuthMenu from "@/app/components/AuthMenu";
 
 export default function TravelMate() {
   return (
@@ -15,15 +16,13 @@ export default function TravelMate() {
             <a href="/tours" className="text-stone-600 hover:text-teal-800">
               Tours
             </a>
-            <a href="/login" className="text-stone-600 hover:text-teal-800">
-              Login
+            <a href="/trips" className="text-stone-600 hover:text-teal-800">
+              Trips
             </a>
-            <a
-              href="/signup"
-              className="whitespace-nowrap rounded-lg bg-teal-700 px-3 py-1.5 font-medium text-white hover:bg-teal-800"
-            >
-              Sign up
+            <a href="/bookings" className="text-stone-600 hover:text-teal-800">
+              Bookings
             </a>
+            <AuthMenu />
           </nav>
         </div>
       </header>

@@ -67,3 +67,21 @@ exports.login = async (req, res, next) => {
     console.log(err);
   }
 };
+
+exports.me = async (req, res) => {
+  return res.status(200).json({
+    loggedIn: true,
+  });
+};
+
+exports.logout = async (req, res, next) => {
+  try {
+    res.clearCookie("auth");
+
+    return res.status(200).json({
+      message: "Logged out successfully",
+    });
+  } catch (err) {
+    return next(err);
+  }
+};
