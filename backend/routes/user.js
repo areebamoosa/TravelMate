@@ -11,10 +11,7 @@ const isAuth = require("../middlewares/auth");
 
 router.get("/destinations", destinationController.destinations);
 
-router.get(
-  "/destination/:destinationId",
-  destinationController.getSingleDestination
-);
+router.get( "/destination/:destinationId", destinationController.getSingleDestination);
 
 // Places routes
 

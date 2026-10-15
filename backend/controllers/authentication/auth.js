@@ -2,19 +2,29 @@ const prisma = require("../../prisma");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { validationResult } = require("express-validator");
+
 const JWT_SECRET_KEY = process.env.JWT_SECRET;
 
 exports.signup = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  const errors = validationResult(req);
+
   try {
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const existingUser = await prisma.user.findUnique({
       where: { email: email },
     });
 
     if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+      return res
+        .status(409)
+        .json({ message: "User with this email already exists" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 12);
@@ -29,7 +39,7 @@ exports.signup = async (req, res, next) => {
 
     return res.json({ message: "User created successfully!" });
   } catch (error) {
-    console.log(error);
+    return next(error);
   }
 };
 
@@ -37,7 +47,14 @@ exports.login = async (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
+  const errors = validationResult(req);
+
+
   try {
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
     const user = await prisma.user.findUnique({ where: { email: email } });
 
     if (!user) {
@@ -64,14 +81,8 @@ exports.login = async (req, res, next) => {
 
     return res.json({ message: "Logged In successfully!", role: user.role });
   } catch (err) {
-    console.log(err);
+    return next(err);
   }
-};
-
-exports.me = async (req, res) => {
-  return res.status(200).json({
-    loggedIn: true,
-  });
 };
 
 exports.logout = async (req, res, next) => {

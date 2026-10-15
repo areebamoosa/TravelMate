@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const router = useRouter();
 
@@ -25,6 +26,22 @@ export default function Login() {
       });
 
       const data = await response.json();
+
+      if (!response.ok){
+        if (data.errors){
+
+          const fieldErrors = {}
+
+          data.errors.forEach((error: {path; msg}) => {
+            fieldErrors[error.path] = error.msg
+          })
+
+          setErrors(fieldErrors)
+
+        } else {
+          setErrors({general: data.message || "Login failed"})
+        }
+      }
 
       if (response.ok) {
         console.log("Login successful!", data);
@@ -56,6 +73,8 @@ export default function Login() {
         Sign in to continue planning your trips.
       </p>
 
+      <label htmlFor="">Email</label>
+
       <input
         type="text"
         placeholder="Enter your email"
@@ -63,6 +82,13 @@ export default function Login() {
         onChange={(e) => setEmail(e.target.value)}
         className="mt-6 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
       />
+
+{errors.email && (
+  <p className="text-sm text-red-500">{errors.email}</p>
+)}
+
+<label htmlFor="">Password</label>
+
 
       <input
         type="password"
@@ -72,12 +98,20 @@ export default function Login() {
         className="mt-3 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
       />
 
+{errors.password && (
+  <p className="text-sm text-red-500">{errors.password}</p>
+)}
+
       <button
         type="submit"
         className="mt-5 w-full rounded-lg bg-teal-700 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
       >
         Login
       </button>
+
+      {errors.general && (
+  <p className="text-sm text-red-500">{errors.general}</p>
+)}
 
       <p className="mt-4 text-center text-sm text-stone-500">
         New here?{" "}

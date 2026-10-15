@@ -9,75 +9,76 @@ const bookingController = require("../controllers/admin/bookingController");
 const weatherController = require("../controllers/admin/weatherController");
 
 const isAuth = require("../middlewares/auth")
+const checkRole = require("../middlewares/checkRole")
 
 const upload = require("../middlewares/upload")
 
 // Destination routes
 
-router.post("/create-destination", upload.single("image") ,destinationController.postDestination);
+router.post("/create-destination", upload.single("image"), isAuth, checkRole ,destinationController.postDestination);
 
-router.get("/destinations", destinationController.getAllDestinations);
+router.get("/destinations", isAuth, checkRole, destinationController.getAllDestinations);
 
-router.get("/destination/:destinationId", destinationController.getSingleDestination);
+router.get("/destination/:destinationId", isAuth, checkRole, destinationController.getSingleDestination);
 
-router.put("/destination/:destinationId", destinationController.updateDestination);
+router.put("/destination/:destinationId", isAuth, checkRole, destinationController.updateDestination);
 
-router.delete("/delete-destination/:destinationId", destinationController.deleteDestination);
+router.delete("/delete-destination/:destinationId", isAuth, checkRole, destinationController.deleteDestination);
 
 // Places routes
 
-router.post("/places/create-place", upload.single('image'), placesController.createPlace);
+router.post("/places/create-place", upload.single('image'),isAuth, checkRole, placesController.createPlace);
 
-router.get("/place/:placeId", placesController.getSinglePlace);
+router.get("/place/:placeId", isAuth, checkRole, placesController.getSinglePlace);
 
-router.get("/places", placesController.getPlaces);
+router.get("/places", isAuth, checkRole, placesController.getPlaces);
 
-router.put("/update-place/:placeId", placesController.updatePlace);
+router.put("/update-place/:placeId", isAuth, checkRole, placesController.updatePlace);
 
-router.delete("/delete-place/:placeId", placesController.deletePlace);
+router.delete("/delete-place/:placeId", isAuth, checkRole, placesController.deletePlace);
 
 
 // Blog routes
 
-router.post('/blogs/create-blog', blogController.postBlog )
+router.post('/blogs/create-blog', isAuth, checkRole, blogController.postBlog )
 
-router.get("/blogs", blogController.allBlogs)
+router.get("/blogs", isAuth, checkRole, blogController.allBlogs)
 
-router.get('/blog/:blogId', blogController.getSingleBlog)
+router.get('/blog/:blogId', isAuth, checkRole, blogController.getSingleBlog)
 
-router.put("/blog/:blogId", blogController.updateBlog)
+router.put("/blog/:blogId", isAuth, checkRole, blogController.updateBlog)
 
-router.delete("/blog/:blogId", blogController.deleteBlog)
+router.delete("/blog/:blogId", isAuth, checkRole, blogController.deleteBlog)
 
 
 
 
 // Booking routes
 
-router.get('/tour/bookings', bookingController.bookings)
+router.get('/tour/bookings', isAuth, checkRole, bookingController.bookings)
 
-router.get('/tour/booking/:bookingId', bookingController.getSingleBooking)
+router.get('/tour/booking/:bookingId', isAuth, checkRole, bookingController.getSingleBooking)
 
-router.put('/tour/booking/:bookingId', bookingController.updateBookingStatus)
+router.put('/tour/booking/:bookingId',isAuth, checkRole, bookingController.updateBookingStatus)
 
-router.post('/tour/booking',isAuth, bookingController.createBooking)
+router.post('/tour/booking',isAuth, checkRole, bookingController.createBooking)
 
 
 
 
 // Tour routes
 
-router.post("/tours/create-tour", upload.single("image"), tourController.createTour)
+router.post("/tours/create-tour", upload.single("image"), isAuth, checkRole, tourController.createTour)
 
-router.get('/tour/:tourId', tourController.getSingleTour)
+router.get('/tour/:tourId', isAuth, checkRole, tourController.getSingleTour)
 
-router.get('/tours', tourController.getAllTours)
+router.get('/tours', isAuth, checkRole, tourController.getAllTours)
 
-router.put('/tour/:tourId', tourController.updateTour)
+router.put('/tour/:tourId',isAuth, checkRole, tourController.updateTour)
 
-router.delete('/tour/:tourId', tourController.deleteTour)
+router.delete('/tour/:tourId',isAuth, checkRole, tourController.deleteTour)
 
 
-router.get('/weather', weatherController.getWeather)
+router.get('/weather', isAuth, checkRole, weatherController.getWeather)
 
 module.exports = router;

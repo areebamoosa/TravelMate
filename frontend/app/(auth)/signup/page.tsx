@@ -5,8 +5,11 @@ import { useState } from "react";
 export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
+    e.preventDefault()
     try {
       const response = await fetch("http://localhost:8080/signup", {
         method: "POST",
@@ -17,6 +20,20 @@ export default function SignUp() {
       });
 
       const data = await response.json();
+
+      if (!response.ok) {
+        if (data.errors) {
+          const fieldErrors = {};
+
+          data.errors.forEach((error) => {
+            fieldErrors[error.path] = error.msg;
+          });
+
+          setErrors(fieldErrors);
+        } else {
+          setErrors({ general: data.message || "Signup failed" });
+        }
+      }
 
       if (response.ok) {
         console.log("Signup successful!", data);
@@ -46,6 +63,7 @@ export default function SignUp() {
         onChange={(e) => setEmail(e.target.value)}
         className="mt-6 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
       />
+      {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
       <input
         type="text"
         placeholder="Enter password"
@@ -53,6 +71,22 @@ export default function SignUp() {
         onChange={(e) => setPassword(e.target.value)}
         className="mt-3 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
       />
+
+      {errors.password && (
+        <p className="text-sm text-red-500">{errors.password}</p>
+      )}
+
+      <input
+        type="text"
+        placeholder="Confirm password"
+        value={confirmPassword}
+        onChange={(e) => setConfirmPassword(e.target.value)}
+        className="mt-3 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+      />
+
+      {errors.confirmPassword && (
+        <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+      )}
 
       <button
         type="submit"
@@ -63,7 +97,10 @@ export default function SignUp() {
 
       <p className="mt-4 text-center text-sm text-stone-500">
         Already have an account?{" "}
-        <a href="/login" className="font-medium text-teal-700 hover:text-teal-800">
+        <a
+          href="/login"
+          className="font-medium text-teal-700 hover:text-teal-800"
+        >
           Login
         </a>
       </p>
