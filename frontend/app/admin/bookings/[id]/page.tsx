@@ -78,7 +78,7 @@ export default function Bookings() {
             </div>
             <div>
               <p className="text-xs uppercase tracking-wide text-stone-500">Total</p>
-              <h1 className="mt-1 text-sm font-semibold text-teal-800">{booking.totalPrice}</h1>
+              <h1 className="mt-1 text-sm font-semibold text-brand">{booking.totalPrice}</h1>
             </div>
             <div>
               <p className="text-xs uppercase tracking-wide text-stone-500">Travelers</p>
@@ -89,13 +89,13 @@ export default function Bookings() {
           <div className="mt-6 flex gap-3">
             <button
               onClick={() => handleStatus("Confirmed")}
-              className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+              className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
             >
               Approve
             </button>
             <button
               onClick={() => handleStatus("Cancelled")}
-              className="rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
+              className="rounded-full bg-red-600 px-4 py-2 text-sm font-medium text-white hover:bg-red-700"
             >
               Cancel
             </button>

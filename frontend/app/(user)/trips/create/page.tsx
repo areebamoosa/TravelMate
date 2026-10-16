@@ -25,6 +25,21 @@ export default function CreateTrip() {
     fetchDestinations();
   }, []);
 
+  const calculateDays = (start, end) => {
+    if (!start || !end) {
+      setDays(1);
+      return;
+    }
+
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    const difference = endDate.getTime() - startDate.getTime();
+    const totalDays = difference / (1000 * 60 * 60 * 24) + 1;
+
+    setDays(totalDays > 0 ? totalDays : 1);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -65,39 +80,56 @@ export default function CreateTrip() {
           </p>
         </div>
         <div>
-          <label htmlFor="" className="block text-sm font-medium text-stone-700">
+          <label
+            htmlFor=""
+            className="block text-sm font-medium text-stone-700"
+          >
             Title
           </label>
           <input
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="" className="block text-sm font-medium text-stone-700">
+            <label
+              htmlFor=""
+              className="block text-sm font-medium text-stone-700"
+            >
               Start Date
             </label>
             <input
               type="date"
               value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+              onChange={(e) => {
+                const data = e.target.value
+                setStartDate(data)
+                calculateDays(data, endDate)
+              }}
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />
           </div>
           <div>
-            <label htmlFor="" className="block text-sm font-medium text-stone-700">
+            <label
+              htmlFor=""
+              className="block text-sm font-medium text-stone-700"
+            >
               End Date
             </label>
 
             <input
               type="date"
               value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+              onChange={(e) => {
+                const data = e.target.value
+                setEndDate(data)
+                calculateDays(startDate, data)
+              }}
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />
           </div>
         </div>
@@ -109,8 +141,8 @@ export default function CreateTrip() {
         <input
           type="number"
           value={days}
-          onChange={(e) => setDays(parseInt(e.target.value))}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          readOnly
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         />
 
         <label htmlFor="" className="block text-sm font-medium text-stone-700">
@@ -120,7 +152,7 @@ export default function CreateTrip() {
         <select
           value={destinationId ?? ""}
           onChange={(e) => setDestinationId(e.target.value)}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         >
           <option value="">Select a destination</option>
 
@@ -133,7 +165,7 @@ export default function CreateTrip() {
 
         <button
           type="submit"
-          className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Create trip
         </button>

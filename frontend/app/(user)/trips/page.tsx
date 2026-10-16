@@ -1,11 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function MyTrips() {
+
+  const router = useRouter()
   const [trips, setTrips] = useState([]);
 
+  const [loggedIn, setIsLoggedIn] = useState(false);
+  const [loginPopup, setLoginPop] = useState(false);
+
   useEffect(() => {
+
+    const checkLogin = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/me", {
+          credentials: "include",
+        });
+
+        setIsLoggedIn(response.ok);
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
     const fetchMyTrips = async () => {
       const response = await fetch("http://localhost:8080/my-trips", {
         credentials: "include"
@@ -20,6 +38,8 @@ export default function MyTrips() {
         console.log("Error fetching your trips")
       }
     };
+
+    checkLogin()
 
     fetchMyTrips();
   }, []);
@@ -38,6 +58,8 @@ export default function MyTrips() {
     }
   }
 
+
+
   return (
     <div>
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -47,12 +69,18 @@ export default function MyTrips() {
             Trips you have planned.
           </p>
         </div>
-        <a
-          href="/trips/create"
-          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
-        >
-          Create trip
-        </a>
+
+
+        <button onClick={() => {
+          if (loggedIn){
+            router.push("/trips/create")
+
+
+          } else {
+            setLoginPop(true)
+          }
+        }}>Create Trip</button>
+
       </div>
 
       <div className="mt-6 grid gap-4">
@@ -80,7 +108,7 @@ export default function MyTrips() {
             <div className="mt-4 flex flex-wrap gap-3 text-sm">
               <a
                 href={`/trips/${trip.id}`}
-                className="rounded-lg bg-teal-700 px-3 py-1.5 font-medium text-white hover:bg-teal-800"
+                className="rounded-full bg-brand px-3 py-1.5 font-medium text-white hover:bg-brand-dark"
               >
                 View Trip details
               </a>
@@ -92,7 +120,7 @@ export default function MyTrips() {
               </a>
               <button
                 onClick={() => deleteTrip(trip.id)}
-                className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
               >
                 Delete Trip
               </button>
@@ -100,6 +128,38 @@ export default function MyTrips() {
           </div>
         ))}
       </div>
+
+      {loginPopup && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
+                <h2 className="text-xl font-semibold text-stone-900">
+                  Login Required
+                </h2>
+
+                <p className="mt-2 text-sm text-stone-600">
+                  Please log in to book this tour.
+                </p>
+
+                <div className="mt-5 flex justify-end gap-3">
+                  <button
+                    onClick={() => setLoginPop(false)}
+                    className="rounded-full border px-4 py-2 text-sm"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      window.location.href = "/login";
+                    }}
+                    className="rounded-full bg-brand px-4 py-2 text-sm text-white"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
     </div>
   );
 }

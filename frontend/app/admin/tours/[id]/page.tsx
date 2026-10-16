@@ -120,7 +120,7 @@ export default function Tour() {
             id="updateName"
             value={updatedName}
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
 
@@ -131,7 +131,7 @@ export default function Tour() {
             id="updateDescription"
             value={updatedDescription}
             onChange={(e) => setDescription(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function Tour() {
             id="updatePrice"
             value={updatedPrice}
             onChange={(e) => setPrice(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
         <div>
@@ -162,7 +162,7 @@ export default function Tour() {
             id="updateDuration"
             value={updatedDuration}
             onChange={(e) => setDuration(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
 
@@ -170,7 +170,7 @@ export default function Tour() {
           <select
             value={destinationId}
             onChange={(e) => setDestinationId(e.target.value)}
-            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           >
             <option value="">Select destination: </option>
 
@@ -194,7 +194,7 @@ export default function Tour() {
 
               setPlaceIds(selectedIds);
             }}
-            className="min-h-32 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="min-h-32 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           >
             {places.map((place) => (
               <option value={place.id} key={place.id}>
@@ -206,7 +206,7 @@ export default function Tour() {
 
         <button
           type="submit"
-          className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Update tour
         </button>

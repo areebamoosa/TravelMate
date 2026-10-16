@@ -64,7 +64,7 @@ export default function Bookings() {
                 <p className="text-xs uppercase tracking-wide text-stone-500">
                   Total
                 </p>
-                <h1 className="mt-1 text-sm font-semibold text-teal-800">
+                <h1 className="mt-1 text-sm font-semibold text-brand">
                   {booking.totalPrice}
                 </h1>
               </div>
@@ -79,7 +79,7 @@ export default function Bookings() {
             </div>
             <a
               href={`/admin/bookings/${booking.id}`}
-              className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+              className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
             >
               View booking
             </a>

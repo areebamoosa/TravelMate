@@ -55,7 +55,7 @@ export default function Destinations() {
         <h1 className="text-2xl font-semibold text-stone-900">Destinations</h1>
         <a
           href="/admin/destinations/create"
-          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Create
         </a>
@@ -74,7 +74,7 @@ export default function Destinations() {
             />
             <div className="min-w-0 flex-1">
               <h2 className="text-lg font-semibold text-stone-900">{destination.city}</h2>
-              <p className="text-sm text-teal-700">{destination.country}</p>
+              <p className="text-sm text-brand">{destination.country}</p>
               <p className="mt-2 text-sm text-stone-600">{destination.description}</p>
               <div className="mt-2 flex gap-4 text-xs text-stone-500">
                 <p>Lat {destination.latitude}</p>
@@ -89,7 +89,7 @@ export default function Destinations() {
                 </a>
                 <button
                   onClick={() => handleDelete(destination.id)}
-                  className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                  className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
                 >
                   Delete Destination
                 </button>

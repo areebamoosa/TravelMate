@@ -44,7 +44,7 @@ export default function Destinations() {
               <h1 className="text-sm text-stone-500">{destination.country}</h1>
               <a
                 href={`/destinations/${destination.id}`}
-                className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
               >
                 See details
               </a>

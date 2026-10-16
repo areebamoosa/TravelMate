@@ -51,7 +51,7 @@ export default function Places() {
         <h1 className="text-2xl font-semibold text-stone-900">Places</h1>
         <a
           href="/admin/places/create"
-          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Create
         </a>
@@ -67,7 +67,7 @@ export default function Places() {
               <h2 className="text-lg font-semibold text-stone-900">{place.name}</h2>
               <p className="mt-1 text-sm text-stone-600">{place.description}</p>
               <p className="mt-2 break-all text-xs text-stone-400">{place.image}</p>
-              <p className="mt-3 inline-block rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800">
+              <p className="mt-3 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand">
                 {place.category}
               </p>
               <div className="mt-2 flex gap-4 text-xs text-stone-500">
@@ -78,7 +78,7 @@ export default function Places() {
               <div className="mt-4 flex gap-3 text-sm">
                 <button
                   onClick={() => handleDelete(place.id)}
-                  className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                  className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
                 >
                   Delete
                 </button>

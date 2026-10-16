@@ -72,7 +72,7 @@ export default function Destination() {
                 {destination.city}
               </h1>
 
-              <h1 className="mt-1 text-sm font-medium uppercase tracking-wide text-teal-700">
+              <h1 className="mt-1 text-sm font-medium uppercase tracking-wide text-brand">
                 {destination.country}
               </h1>
 
@@ -128,7 +128,7 @@ export default function Destination() {
               <h1 className="mt-1 text-sm text-stone-600">
                 {place.description}
               </h1>
-              <h1 className="mt-3 inline-block rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800">
+              <h1 className="mt-3 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand">
                 {place.category}
               </h1>
               <div className="mt-3 text-xs text-stone-500">
@@ -159,7 +159,7 @@ export default function Destination() {
               <h1 className="text-lg font-semibold text-stone-900">
                 {tour.name}
               </h1>
-              <h1 className="mt-2 text-base font-semibold text-teal-800">
+              <h1 className="mt-2 text-base font-semibold text-brand">
                 {tour.price}
               </h1>
               <div className="mt-1 flex gap-1 text-sm text-stone-500">
@@ -168,7 +168,7 @@ export default function Destination() {
               </div>
               <a
                 href={`/tours/${tour.id}`}
-                className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
               >
                 See details of Tour
               </a>

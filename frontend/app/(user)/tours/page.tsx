@@ -43,14 +43,14 @@ export default function Tours() {
             <div className="p-4">
               <h1 className="text-lg font-semibold text-stone-900">{tour.name}</h1>
               <h1 className="mt-2 line-clamp-3 text-sm text-stone-600">{tour.description}</h1>
-              <h1 className="mt-3 text-base font-semibold text-teal-800">{tour.price}</h1>
+              <h1 className="mt-3 text-base font-semibold text-brand">{tour.price}</h1>
               <div className="mt-1 flex gap-1 text-sm text-stone-500">
                 <h1>{tour.duration}</h1>
                 <h1>{tour.durationUnit}</h1>
               </div>
               <a
                 href={`/tours/${tour.id}`}
-                className="mt-4 inline-block text-sm font-medium text-teal-700 hover:text-teal-800"
+                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
               >
                 See details of tour
               </a>

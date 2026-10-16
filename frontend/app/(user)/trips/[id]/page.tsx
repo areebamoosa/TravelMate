@@ -87,7 +87,7 @@ export default function Trip() {
 
           <a
             href={`/trips/${trip.id}/schedule`}
-            className="mt-6 inline-block rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+            className="mt-6 inline-block rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
           >
             Schedule days of your trip
           </a>
@@ -108,7 +108,7 @@ export default function Trip() {
                 <h1 className="text-lg font-semibold text-stone-900">{schedule.title}</h1>
                 <h1 className="mt-2 text-sm text-stone-600">{schedule.notes}</h1>
                 <div className="mt-3 flex flex-wrap gap-3 text-sm">
-                  <h1 className="rounded-full bg-teal-50 px-2.5 py-1 text-xs font-medium text-teal-800">
+                  <h1 className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand">
                     Day {schedule.day}
                   </h1>
                   <h1 className="text-stone-700">{schedule.place.name}</h1>

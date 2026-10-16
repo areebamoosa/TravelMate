@@ -60,7 +60,7 @@ export default function Weather({ latitude, longitude }: WeatherProps) {
         Current Weather
       </h2>
 
-      <p className="mt-4 text-3xl font-semibold text-teal-800">
+      <p className="mt-4 text-3xl font-semibold text-brand">
         {weather.temperature_2m}°C
       </p>
 

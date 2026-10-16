@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import LogoutButton from "./LogoutButton";
 
-export default function AuthMenu({ variant = "site" }: { variant?: "site" | "admin" }) {
+export default function AuthMenu({ variant = "site" }: { variant?: "site" | "admin" | "footer" }) {
   const [loggedIn, setLoggedIn] = useState(false);
   const [ready, setReady] = useState(false);
 
@@ -41,6 +41,21 @@ export default function AuthMenu({ variant = "site" }: { variant?: "site" | "adm
     return null;
   }
 
+  if (variant === "footer") {
+    if (loggedIn) {
+      return (
+        <LogoutButton className="text-left text-sm text-stone-600 hover:text-brand" />
+      );
+    }
+
+    return (
+      <>
+        <a href="/login" className="hover:text-brand">Login</a>
+        <a href="/signup" className="hover:text-brand">Register</a>
+      </>
+    );
+  }
+
   if (variant === "admin") {
     if (!loggedIn) {
       return null;
@@ -53,20 +68,20 @@ export default function AuthMenu({ variant = "site" }: { variant?: "site" | "adm
 
   if (loggedIn) {
     return (
-      <LogoutButton className="whitespace-nowrap rounded-lg border border-stone-300 px-3 py-1.5 font-medium text-stone-700 hover:bg-stone-50" />
+      <LogoutButton className="whitespace-nowrap rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50" />
     );
   }
 
   return (
     <>
-      <a href="/login" className="text-stone-600 hover:text-teal-800">
+      <a href="/login" className="text-sm font-medium text-stone-800 hover:text-brand">
         Login
       </a>
       <a
         href="/signup"
-        className="whitespace-nowrap rounded-lg bg-teal-700 px-3 py-1.5 font-medium text-white hover:bg-teal-800"
+        className="whitespace-nowrap rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white hover:bg-brand-dark"
       >
-        Sign up
+        Register
       </a>
     </>
   );

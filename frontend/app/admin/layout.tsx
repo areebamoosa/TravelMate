@@ -10,7 +10,7 @@ export default function AdminLayout({
         <aside className="shrink-0 bg-stone-900 text-stone-100 sm:flex sm:w-56 sm:flex-col">
           <div className="px-5 py-4 sm:py-6">
             <a href="/admin" className="text-lg font-semibold tracking-tight">
-              TravelMate
+              Travel<span className="text-brand">Mate</span>
             </a>
             <p className="mt-1 text-xs uppercase tracking-wide text-stone-400">
               Admin

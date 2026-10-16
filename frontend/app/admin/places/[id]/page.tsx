@@ -105,7 +105,7 @@ export default function CreatePlace() {
             value={updatedName}
             name="updatedName"
             onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
       </div>
@@ -117,7 +117,7 @@ export default function CreatePlace() {
             value={updatedDescription}
             name="updatedDescription"
             onChange={(e) => setDescription(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
       </div>
@@ -129,7 +129,7 @@ export default function CreatePlace() {
             value={updatedImage}
             name="updatedImage"
             onChange={(e) => setImage(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
       </div>
@@ -137,7 +137,7 @@ export default function CreatePlace() {
         <select
           value={updatedCategory}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         >
           <option value="">Select Category</option>
           <option value="restaurant">Restaurant</option>
@@ -152,7 +152,7 @@ export default function CreatePlace() {
         <select
           value={destinationId}
           onChange={(e) => setDestinationId(e.target.value)}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         >
           <option value="">Select destination:</option>
 
@@ -172,7 +172,7 @@ export default function CreatePlace() {
             value={updatedLatitude}
             name="updatedLatitude"
             onChange={(e) => setLatitude(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
         <label htmlFor="longitude" className="block text-sm font-medium text-stone-700">
@@ -182,14 +182,14 @@ export default function CreatePlace() {
             value={updatedLongitude}
             name="updatedLongitude"
             onChange={(e) => setLongitude(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
       </div>
 
       <button
         type="submit"
-        className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+        className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
       >
         Update Place
       </button>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import NotFound from "@/app/not-found";
 
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
@@ -11,6 +12,10 @@ export default function Bookings() {
         const response = await fetch("http://localhost:8080/bookings", {
           credentials: "include",
         });
+
+        if (response.status === 404){
+          return NotFound()
+        }
 
         if (response.ok) {
           const data = await response.json();
@@ -54,7 +59,7 @@ export default function Bookings() {
               </div>
               <div>
                 <p className="text-xs uppercase tracking-wide text-stone-500">Total</p>
-                <h1 className="mt-1 text-sm font-semibold text-teal-800">{booking.totalPrice}</h1>
+                <h1 className="mt-1 text-sm font-semibold text-brand">{booking.totalPrice}</h1>
               </div>
               <div>
                 <p className="text-xs uppercase tracking-wide text-stone-500">Travelers</p>

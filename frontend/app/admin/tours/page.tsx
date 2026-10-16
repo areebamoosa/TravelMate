@@ -41,7 +41,7 @@ export default function Tour() {
         <h1 className="text-2xl font-semibold text-stone-900">Tours</h1>
         <a
           href="/admin/tours/create"
-          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Create
         </a>
@@ -63,7 +63,7 @@ export default function Tour() {
                 <h1 className="text-lg font-semibold text-stone-900">{tour.name}</h1>
                 <h1 className="mt-1 text-sm text-stone-600">{tour.description}</h1>
                 <div className="mt-2 flex gap-4 text-sm">
-                  <h1 className="font-semibold text-teal-800">{tour.price}</h1>
+                  <h1 className="font-semibold text-brand">{tour.price}</h1>
                   <h1 className="text-stone-500">{tour.duration}</h1>
                 </div>
               </div>
@@ -95,7 +95,7 @@ export default function Tour() {
             <div className="mt-4 flex gap-3 text-sm">
               <button
                 onClick={() => handleDelete(tour.id)}
-                className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
               >
                 Delete
               </button>

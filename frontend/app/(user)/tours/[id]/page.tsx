@@ -6,15 +6,27 @@ import { useParams } from "next/navigation";
 
 import TourModal from "@/app/components/TourModal";
 
-
-
 export default function Tour() {
   const [tour, setTour] = useState();
   const [modal, setModal] = useState(false);
+  const [loggedIn, setIsLoggedIn] = useState(false);
+  const [loginPopup, setLoginPop] = useState(false);
 
   const params = useParams();
 
   useEffect(() => {
+    const checkLogin = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/me", {
+          credentials: "include",
+        });
+
+        setIsLoggedIn(response.ok);
+      } catch (err) {
+        setIsLoggedIn(false);
+      }
+    };
+
     const fetchTour = async () => {
       const response = await fetch(`http://localhost:8080/tour/${params.id}`);
 
@@ -26,7 +38,7 @@ export default function Tour() {
         console.log("Error fetching tour");
       }
     };
-
+    checkLogin();
     fetchTour();
   }, [params.id]);
 
@@ -41,17 +53,25 @@ export default function Tour() {
               className="h-72 w-full object-cover"
             />
             <div className="p-6">
-              <h1 className="text-3xl font-semibold text-stone-900">{tour.name}</h1>
+              <h1 className="text-3xl font-semibold text-stone-900">
+                {tour.name}
+              </h1>
               <h1 className="mt-3 max-w-3xl leading-relaxed text-stone-600">
                 {tour.description}
               </h1>
               <div className="mt-4 flex flex-wrap gap-6">
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-stone-500">Price</p>
-                  <h1 className="text-xl font-semibold text-teal-800">{tour.price}</h1>
+                  <p className="text-xs uppercase tracking-wide text-stone-500">
+                    Price
+                  </p>
+                  <h1 className="text-xl font-semibold text-brand">
+                    {tour.price}
+                  </h1>
                 </div>
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-stone-500">Duration</p>
+                  <p className="text-xs uppercase tracking-wide text-stone-500">
+                    Duration
+                  </p>
                   <div className="flex gap-1 text-xl font-semibold text-stone-900">
                     <h1>{tour.duration}</h1>
                     <h1>{tour.durationUnit}</h1>
@@ -59,8 +79,14 @@ export default function Tour() {
                 </div>
               </div>
               <button
-                onClick={(e) => setModal(true)}
-                className="mt-6 rounded-lg bg-teal-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+                onClick={(e) => {
+                  if (loggedIn) {
+                    setModal(true);
+                  } else {
+                    setLoginPop(true);
+                  }
+                }}
+                className="mt-6 rounded-full bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-dark"
               >
                 Book tour
               </button>
@@ -89,7 +115,39 @@ export default function Tour() {
             ))}
           </div>
 
-          {modal && <TourModal onClose = {() => setModal(false) }/>}
+          {modal && <TourModal onClose={() => setModal(false)} />}
+
+          {loginPopup && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+              <div className="w-full max-w-sm rounded-2xl bg-white p-6 shadow-lg">
+                <h2 className="text-xl font-semibold text-stone-900">
+                  Login Required
+                </h2>
+
+                <p className="mt-2 text-sm text-stone-600">
+                  Please log in to book this tour.
+                </p>
+
+                <div className="mt-5 flex justify-end gap-3">
+                  <button
+                    onClick={() => setLoginPop(false)}
+                    className="rounded-full border px-4 py-2 text-sm"
+                  >
+                    Cancel
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      window.location.href = "/login";
+                    }}
+                    className="rounded-full bg-brand px-4 py-2 text-sm text-white"
+                  >
+                    Login
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>

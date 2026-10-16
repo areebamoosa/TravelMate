@@ -61,7 +61,7 @@ export default function TourModal({ onClose }) {
                         <h1 className="text-lg font-medium text-stone-800">{tour.name}</h1>
                         <h2 id="price" className="text-sm text-stone-500">
                             <span className="block text-xs uppercase tracking-wide">Price</span>
-                            <span className="text-base font-semibold text-teal-800">{tour.price}</span>
+                            <span className="text-base font-semibold text-brand">{tour.price}</span>
                         </h2>
 
                         <label className="block text-sm font-medium text-stone-700">
@@ -73,7 +73,7 @@ export default function TourModal({ onClose }) {
                                 required
                                 value={date}
                                 onChange={(e) => setDate(e.target.value)}
-                                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+                                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
                             />
                         </label>
 
@@ -85,7 +85,7 @@ export default function TourModal({ onClose }) {
                                 value={travelers}
                                 onChange={(e) => setTravelers(parseInt(e.target.value))}
                                 min={1}
-                                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+                                className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
                             />
                         </div>
 
@@ -96,7 +96,7 @@ export default function TourModal({ onClose }) {
 
                         <button
                             type="submit"
-                            className="w-full rounded-lg bg-teal-700 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+                            className="w-full rounded-full bg-brand py-2.5 text-sm font-medium text-white hover:bg-brand-dark"
                         >
                             Confirm Booking
                         </button>

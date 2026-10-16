@@ -41,7 +41,7 @@ export default function Blogs() {
         <h1 className="text-2xl font-semibold text-stone-900">Blogs</h1>
         <a
           href="/admin/blogs/create"
-          className="rounded-lg bg-teal-700 px-3 py-1.5 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Create
         </a>
@@ -67,7 +67,7 @@ export default function Blogs() {
                 </a>
                 <button
                   onClick={() => handleDelete(blog.id)}
-                  className="rounded-lg bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
+                  className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
                 >
                   Delete
                 </button>

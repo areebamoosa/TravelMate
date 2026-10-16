@@ -46,34 +46,30 @@ export default function SignUp() {
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rounded-2xl border border-stone-200 bg-white p-8 shadow-sm"
-    >
-      <p className="text-sm font-medium text-teal-700">TravelMate</p>
-      <h1 className="mt-1 text-2xl font-semibold text-stone-900">Sign up</h1>
-      <p className="mt-1 text-sm text-stone-500">
-        Create an account to book tours and save trips.
-      </p>
+    <form onSubmit={handleSubmit} className="mx-auto max-w-sm text-center">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-lg font-semibold">
+        TM
+      </div>
+      <h1 className="text-3xl font-bold">Register</h1>
 
       <input
         type="text"
         placeholder="Enter email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        className="mt-6 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+        className="mt-6 w-full rounded-md bg-white px-3 py-2.5 text-sm text-stone-800 outline-none"
       />
-      {errors.email && <p className="text-sm text-red-500">{errors.email}</p>}
+      {errors.email && <p className="mt-1 text-left text-sm text-red-100">{errors.email}</p>}
       <input
         type="text"
         placeholder="Enter password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        className="mt-3 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+        className="mt-3 w-full rounded-md bg-white px-3 py-2.5 text-sm text-stone-800 outline-none"
       />
 
       {errors.password && (
-        <p className="text-sm text-red-500">{errors.password}</p>
+        <p className="mt-1 text-left text-sm text-red-100">{errors.password}</p>
       )}
 
       <input
@@ -81,26 +77,27 @@ export default function SignUp() {
         placeholder="Confirm password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}
-        className="mt-3 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+        className="mt-3 w-full rounded-md bg-white px-3 py-2.5 text-sm text-stone-800 outline-none"
       />
 
       {errors.confirmPassword && (
-        <p className="text-sm text-red-500">{errors.confirmPassword}</p>
+        <p className="mt-1 text-left text-sm text-red-100">{errors.confirmPassword}</p>
+      )}
+
+      {errors.general && (
+        <p className="mt-3 text-sm text-red-100">{errors.general}</p>
       )}
 
       <button
         type="submit"
-        className="mt-5 w-full rounded-lg bg-teal-700 py-2.5 text-sm font-medium text-white hover:bg-teal-800"
+        className="mt-6 w-full rounded-md bg-stone-900 py-2.5 text-sm font-semibold text-white hover:bg-stone-800"
       >
-        Sign Up
+        Create Account
       </button>
 
-      <p className="mt-4 text-center text-sm text-stone-500">
+      <p className="mt-4 text-center text-sm">
         Already have an account?{" "}
-        <a
-          href="/login"
-          className="font-medium text-teal-700 hover:text-teal-800"
-        >
+        <a href="/login" className="font-semibold underline">
           Login
         </a>
       </p>

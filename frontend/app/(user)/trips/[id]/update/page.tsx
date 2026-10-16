@@ -95,7 +95,7 @@ export default function Trip() {
             type="text"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+            className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </div>
 
@@ -108,7 +108,7 @@ export default function Trip() {
               type="date"
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />
           </div>
           <div>
@@ -121,7 +121,7 @@ export default function Trip() {
               type="date"
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+              className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function Trip() {
           type="number"
           value={days}
           onChange={(e) => setDays(parseInt(e.target.value))}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         />
 
         <label htmlFor="" className="block text-sm font-medium text-stone-700">
@@ -144,7 +144,7 @@ export default function Trip() {
         <select
           value={destinationId ?? ""}
           onChange={(e) => setDestinationId(e.target.value)}
-          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-teal-600"
+          className="w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
         >
           <option value="">Select a destination</option>
 
@@ -157,7 +157,7 @@ export default function Trip() {
 
         <button
           type="submit"
-          className="rounded-lg bg-teal-700 px-4 py-2 text-sm font-medium text-white hover:bg-teal-800"
+          className="rounded-full bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
         >
           Update trip
         </button>
