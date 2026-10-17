@@ -12,6 +12,7 @@ export default function Bookings() {
           "http://localhost:8080/admin/tour/bookings",
           {
             method: "GET",
+            credentials: "include",
           }
         );
 

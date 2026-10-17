@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Destinations() {
   const [destinations, setDestinations] = useState([]);
@@ -10,7 +11,9 @@ export default function Destinations() {
       try {
         const response = await fetch(
           "http://localhost:8080/admin/destinations"
-        );
+        , {
+          credentials: "include"
+        });
 
         const data = await response.json();
         if (response.ok) {
@@ -32,6 +35,7 @@ export default function Destinations() {
         `http://localhost:8080/admin/delete-destination/${id}`,
         {
           method: "DELETE",
+          credentials: "include"
         }
       );
 
@@ -41,11 +45,13 @@ export default function Destinations() {
         setDestinations((prev) =>
           prev.filter((destination) => destination.id !== data.destinationId)
         );
+
+        toast.success(data.message);
       } else {
-        console.error("Failed to delete destination", data);
+        toast.error(data.message || "Failed to delete destination");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -73,9 +79,13 @@ export default function Destinations() {
               className="h-36 w-full rounded-xl object-cover sm:w-48"
             />
             <div className="min-w-0 flex-1">
-              <h2 className="text-lg font-semibold text-stone-900">{destination.city}</h2>
+              <h2 className="text-lg font-semibold text-stone-900">
+                {destination.city}
+              </h2>
               <p className="text-sm text-brand">{destination.country}</p>
-              <p className="mt-2 text-sm text-stone-600">{destination.description}</p>
+              <p className="mt-2 text-sm text-stone-600">
+                {destination.description}
+              </p>
               <div className="mt-2 flex gap-4 text-xs text-stone-500">
                 <p>Lat {destination.latitude}</p>
                 <p>Lng {destination.longitude}</p>

@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Caveat, Poppins } from "next/font/google";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,6 +22,7 @@ export default function RootLayout({
     return (
       <html lang="en">
         <body className={`${poppins.variable} ${caveat.variable} min-h-screen bg-white font-sans text-stone-800 antialiased`}>{children}</body>
+        <Toaster position="top-right" richColors/>
       </html>
     );
   }

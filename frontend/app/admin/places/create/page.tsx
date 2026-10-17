@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function CreatePlace() {
   const [name, setName] = useState("");
@@ -14,7 +15,10 @@ export default function CreatePlace() {
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const response = await fetch("http://localhost:8080/admin/destinations");
+      const response = await fetch("http://localhost:8080/admin/destinations", {
+        credentials: "include"
+
+      });
 
       const data = await response.json();
 
@@ -31,34 +35,39 @@ export default function CreatePlace() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData()
+    const formData = new FormData();
 
-    formData.append('name', name)
-    formData.append('description', description)
-    formData.append('category',  category)
-    formData.append('latitude', latitude)
-    formData.append('longitude', longitude)
-    formData.append('destinationId',  destinationId)
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("category", category);
+    formData.append("latitude", latitude);
+    formData.append("longitude", longitude);
+    formData.append("destinationId", destinationId);
 
-    if (image){
-      formData.append("image", image)
+    if (image) {
+      formData.append("image", image);
     }
 
     try {
-      const response = await fetch("http://localhost:8080/admin/places/create-place", {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        "http://localhost:8080/admin/places/create-place",
+        {
+          method: "POST",
+          body: formData,
+          credentials: "include"
+
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Place created successfully", data);
+        toast.success(data.message);
       } else {
-        console.log("Error creating place", data);
+        toast.error(data.message || "Failed to create a place");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -69,10 +78,15 @@ export default function CreatePlace() {
     >
       <div>
         <h1 className="text-2xl font-semibold text-stone-900">Create place</h1>
-        <p className="mt-1 text-sm text-stone-500">Add a spot inside a destination.</p>
+        <p className="mt-1 text-sm text-stone-500">
+          Add a spot inside a destination.
+        </p>
       </div>
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-stone-700"
+        >
           Name:
           <input
             type="text"
@@ -84,7 +98,10 @@ export default function CreatePlace() {
         </label>
       </div>
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-stone-700"
+        >
           {" "}
           Description:
           <input
@@ -97,7 +114,10 @@ export default function CreatePlace() {
         </label>
       </div>
       <div>
-        <label htmlFor="image" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="image"
+          className="block text-sm font-medium text-stone-700"
+        >
           {" "}
           Image:
           <input
@@ -141,7 +161,10 @@ export default function CreatePlace() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label htmlFor="latitude" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="latitude"
+          className="block text-sm font-medium text-stone-700"
+        >
           Latitude:
           <input
             type="text"
@@ -151,7 +174,10 @@ export default function CreatePlace() {
             className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
-        <label htmlFor="longitude" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="longitude"
+          className="block text-sm font-medium text-stone-700"
+        >
           Longitude:
           <input
             type="text"

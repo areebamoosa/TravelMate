@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Trip() {
   const [trip, setTrip] = useState(null);
@@ -37,7 +37,7 @@ export default function Trip() {
       } else if (response.status === 404) {
         setSchedules([]);
       } else {
-        console.log("Error fetching trip schedules");
+toast.error("Error fetching trip's schedules")
       }
     };
 

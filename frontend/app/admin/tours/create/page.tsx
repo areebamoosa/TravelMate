@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function Tour() {
   const [name, setName] = useState("");
@@ -16,7 +17,10 @@ export default function Tour() {
 
   useEffect(() => {
     const fetchDestinations = async () => {
-      const response = await fetch("http://localhost:8080/admin/destinations");
+      const response = await fetch("http://localhost:8080/admin/destinations", {
+        credentials: "include"
+
+      });
 
       const data = await response.json();
 
@@ -28,7 +32,10 @@ export default function Tour() {
     };
 
     const fetchPlaces = async () => {
-      const response = await fetch("http://localhost:8080/admin/places");
+      const response = await fetch("http://localhost:8080/admin/places", {
+        credentials: "include"
+
+      });
 
       const data = await response.json();
 
@@ -63,18 +70,20 @@ export default function Tour() {
         {
           method: "POST",
           body: formData,
+          credentials: "include"
+
         }
       );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Tour created successfully", data);
+        toast.success(data.message);
       } else {
-        console.log("Error creating tour");
+        toast.error(data.message || "Error creating the tour");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -86,10 +95,17 @@ export default function Tour() {
       >
         <div>
           <h1 className="text-2xl font-semibold text-stone-900">Create tour</h1>
-          <p className="mt-1 text-sm text-stone-500">Set the price, length, and places.</p>
+          <p className="mt-1 text-sm text-stone-500">
+            Set the price, length, and places.
+          </p>
         </div>
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-stone-700">Name</label>
+          <label
+            htmlFor="name"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Name
+          </label>
           <input
             type="text"
             id="name"
@@ -100,7 +116,12 @@ export default function Tour() {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-medium text-stone-700">Description</label>
+          <label
+            htmlFor="description"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Description
+          </label>
           <input
             type="text"
             id="description"
@@ -111,7 +132,12 @@ export default function Tour() {
         </div>
 
         <div>
-          <label htmlFor="price" className="block text-sm font-medium text-stone-700">Price</label>
+          <label
+            htmlFor="price"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Price
+          </label>
           <input
             type="number"
             id="price"
@@ -121,7 +147,12 @@ export default function Tour() {
           />
         </div>
         <div>
-          <label htmlFor="image" className="block text-sm font-medium text-stone-700">Image</label>
+          <label
+            htmlFor="image"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Image
+          </label>
           <input
             type="file"
             name="image"
@@ -131,7 +162,12 @@ export default function Tour() {
           />
         </div>
         <div>
-          <label htmlFor="duration" className="block text-sm font-medium text-stone-700">Duration</label>
+          <label
+            htmlFor="duration"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Duration
+          </label>
           <input
             type="text"
             id="duration"

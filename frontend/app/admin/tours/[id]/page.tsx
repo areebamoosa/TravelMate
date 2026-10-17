@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Tour() {
   const [updatedName, setName] = useState("");
@@ -23,6 +23,7 @@ export default function Tour() {
         `http://localhost:8080/admin/tour/${params.id}`,
         {
           method: "GET",
+          credentials: "include",
         }
       );
 
@@ -40,7 +41,9 @@ export default function Tour() {
     };
 
     const fetchDestinations = async () => {
-      const response = await fetch("http://localhost:8080/admin/destinations");
+      const response = await fetch("http://localhost:8080/admin/destinations", {
+        credentials: "include",
+      });
 
       const data = await response.json();
 
@@ -52,7 +55,9 @@ export default function Tour() {
     };
 
     const fetchPlaces = async () => {
-      const response = await fetch("http://localhost:8080/admin/places");
+      const response = await fetch("http://localhost:8080/admin/places", {
+        credentials: "include",
+      });
 
       const data = await response.json();
 
@@ -72,34 +77,35 @@ export default function Tour() {
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+
+      formData.append("updatedName", updatedName);
+      formData.append("updatedDescription", updatedDescription);
+      formData.append("updatedPrice", updatedPrice);
+      formData.append("updatedImage", updatedImage);
+      formData.append("updatedDuration", updatedDuration);
+      formData.append("destinationId", destinationId);
+      formData.append("updatedPlaceIds", JSON.stringify(updatedPlaceIds));
+
       const response = await fetch(
         `http://localhost:8080/admin/tour/${params.id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            updatedName,
-            updatedDescription,
-            updatedPrice,
-            updatedImage,
-            updatedDuration,
-            updatedPlaceIds,
-            destinationId,
-          }),
+        
+          credentials: "include",
+          body: formData,
         }
       );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Tour created successfully", data);
+        toast.success(data.message);
       } else {
-        console.log("Error creating tour");
+        toast.error(data.message || "Error updating the tour.");
       }
     } catch (err) {
-      console.log("Error creating the form.");
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -111,10 +117,17 @@ export default function Tour() {
       >
         <div>
           <h1 className="text-2xl font-semibold text-stone-900">Update tour</h1>
-          <p className="mt-1 text-sm text-stone-500">Change the tour details below.</p>
+          <p className="mt-1 text-sm text-stone-500">
+            Change the tour details below.
+          </p>
         </div>
         <div>
-          <label htmlFor="updateName" className="block text-sm font-medium text-stone-700">Name</label>
+          <label
+            htmlFor="updateName"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Name
+          </label>
           <input
             type="text"
             id="updateName"
@@ -125,7 +138,12 @@ export default function Tour() {
         </div>
 
         <div>
-          <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">Description</label>
+          <label
+            htmlFor="updateDescription"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Description
+          </label>
           <input
             type="text"
             id="updateDescription"
@@ -136,7 +154,12 @@ export default function Tour() {
         </div>
 
         <div>
-          <label htmlFor="updatePrice" className="block text-sm font-medium text-stone-700">Price</label>
+          <label
+            htmlFor="updatePrice"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Price
+          </label>
           <input
             type="text"
             id="updatePrice"
@@ -146,7 +169,12 @@ export default function Tour() {
           />
         </div>
         <div>
-          <label htmlFor="updateImage" className="block text-sm font-medium text-stone-700">Image</label>
+          <label
+            htmlFor="updateImage"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Image
+          </label>
           <input
             type="file"
             id="updateImage"
@@ -156,7 +184,12 @@ export default function Tour() {
           />
         </div>
         <div>
-          <label htmlFor="updateDuration" className="block text-sm font-medium text-stone-700">Duration</label>
+          <label
+            htmlFor="updateDuration"
+            className="block text-sm font-medium text-stone-700"
+          >
+            Duration
+          </label>
           <input
             type="text"
             id="updateDuration"

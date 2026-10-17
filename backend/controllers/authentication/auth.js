@@ -69,7 +69,7 @@ exports.login = async (req, res, next) => {
       return res.status(400).json({ message: "Incorrect password." });
     }
 
-    const token = jwt.sign({ id: user.id }, JWT_SECRET_KEY, {
+    const token = jwt.sign({ id: user.id , email: user.email, role: user.role}, JWT_SECRET_KEY, {
       expiresIn: "1d",
     });
 

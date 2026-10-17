@@ -1,14 +1,8 @@
 const prisma = require("../../prisma");
 
 exports.createPlace = async (req, res, next) => {
-  const {
-    name,
-    description,
-    category,
-    latitude,
-    longitude,
-    destinationId,
-  } = req.body;
+  const { name, description, category, latitude, longitude, destinationId } =
+    req.body;
 
   const image = req.file.path;
 
@@ -21,7 +15,7 @@ exports.createPlace = async (req, res, next) => {
         category,
         latitude,
         longitude,
-       destinationId: parseInt(destinationId),
+        destinationId: parseInt(destinationId),
       },
     });
 
@@ -111,16 +105,25 @@ exports.deletePlace = async (req, res, next) => {
   const placeId = parseInt(req.params.placeId);
 
   try {
-    const place = await prisma.place.delete({ where: { id: placeId } });
-    if (!place) {
-      const error = new Error("Place not found");
-      error.status = 404;
-      return next(error);
+    const existingPlace = await prisma.place.findUnique({
+      where: { id: placeId },
+      include: { tours: true },
+    });
+
+    if (!existingPlace) {
+      return res.status(404).json({ message: "Place not found" });
     }
+
+    if (existingPlace.tours.length > 0) {
+      return res.status(409).json({
+        message:
+          "Cannot delete this place because it is assigned to one or more tours.",
+      });
+    }
+    prisma.place.delete({ where: { id: placeId } });
+
     return res.status(200).json({ message: "Place deleted successfully" });
   } catch (err) {
     next(err);
   }
 };
-
-exports.categoryPlace = async (req, res, next) => {};

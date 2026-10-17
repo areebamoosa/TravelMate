@@ -1,7 +1,9 @@
 const prisma = require("../../prisma");
 
 exports.postBlog = async (req, res, next) => {
-  const { title, description, image } = req.body;
+  const { title, description } = req.body;
+
+  const image = req.file.path;
 
   try {
     const blog = await prisma.blog.create({
@@ -51,9 +53,14 @@ exports.allBlogs = async (req, res, next) => {
   }
 };
 exports.updateBlog = async (req, res, next) => {
+  
   const blogId = parseInt(req.params.blogId);
 
-  const { updateTitle, updateDescription, updateImage } = req.body;
+  const { updateTitle, updateDescription } = req.body;
+
+  const existingBlog = await prisma.blog.findUnique({ where: { id: blogId } });
+
+  const updateImage = req.file ?  req.file.path : existingBlog.image
 
   try {
     const blog = await prisma.blog.findUnique({ where: { id: blogId } });

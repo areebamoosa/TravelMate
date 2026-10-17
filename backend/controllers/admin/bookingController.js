@@ -82,7 +82,7 @@ exports.updateBookingStatus = async (req, res, next) => {
 
     return res
       .status(200)
-      .json({ message: "Booking status  updated successfully", booking });
+      .json({ message: "Booking status updated successfully", booking });
   } catch (err) {
     return next(err);
   }

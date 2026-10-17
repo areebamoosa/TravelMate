@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function CreateDestination() {
   const [city, setCity] = useState("");
@@ -30,7 +31,7 @@ export default function CreateDestination() {
         "http://localhost:8080/admin/create-destination",
         {
           method: "POST",
-
+          credentials: "include",
           body: formData,
         }
       );
@@ -38,12 +39,12 @@ export default function CreateDestination() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Destination created successfully!", data);
+toast.success(data.message)
       } else {
-        console.error("Failed to create destination", data);
+toast.error(data.meessage || "Failed to create destination")
       }
     } catch (error) {
-      console.error("Error creating destination:", error);
+toast.error("Something went wrong, please try again.")
     }
   };
 

@@ -1,13 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function Blogs() {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
     const fetchBlogs = async () => {
-      const response = await fetch("http://localhost:8080/admin/blogs");
+      const response = await fetch("http://localhost:8080/admin/blogs", {
+        credentials: "include"
+      });
 
       const data = await response.json();
 
@@ -22,16 +25,22 @@ export default function Blogs() {
   }, []);
 
   const handleDelete = async (id) => {
-    const response = await fetch(`http://localhost:8080/admin/blog/${id}`, {
-      method: "DELETE",
-    });
+    try {
+      const response = await fetch(`http://localhost:8080/admin/blog/${id}`, {
+        method: "DELETE",
+        credentials: "include"
+      });
 
-    if (response.ok) {
-      console.log("Blog deleted successfuly");
+      const data = await response.json();
+      if (response.ok) {
+        toast.success(data.message);
 
-      setBlogs(blogs.filter((blog) => blog.id !== id));
-    } else {
-      console.log("Error deleting the blog");
+        setBlogs(blogs.filter((blog) => blog.id !== id));
+      } else {
+        toast.error(data.message || "Failed to delete the blog");
+      }
+    } catch (err) {
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -54,9 +63,15 @@ export default function Blogs() {
               key={blog.id}
               className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
             >
-              <h1 className="text-lg font-semibold text-stone-900">{blog.title}</h1>
-              <h1 className="mt-2 text-sm leading-relaxed text-stone-600">{blog.description}</h1>
-              <h1 className="mt-2 break-all text-xs text-stone-400">{blog.image}</h1>
+              <h1 className="text-lg font-semibold text-stone-900">
+                {blog.title}
+              </h1>
+              <h1 className="mt-2 text-sm leading-relaxed text-stone-600">
+                {blog.description}
+              </h1>
+              <h1 className="mt-2 break-all text-xs text-stone-400">
+                {blog.image}
+              </h1>
 
               <div className="mt-4 flex gap-3 text-sm">
                 <a

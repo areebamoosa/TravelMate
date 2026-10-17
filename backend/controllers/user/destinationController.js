@@ -39,7 +39,3 @@ exports.getSingleDestination = async (req, res, next) => {
       next(err);
     }
   };
-
-
-//   exports.searchDestination = async (req, res, next) => {}
-//   exports.filterDestinatiion = async (req, res, next) => {}

@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function UpdateBlog() {
   const [updateTitle, setTitle] = useState("");
@@ -14,7 +14,9 @@ export default function UpdateBlog() {
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
-        `http://localhost:8080/admin/blog/${params.id}`
+        `http://localhost:8080/admin/blog/${params.id}`, {
+          credentials: "include"
+        }
       );
 
       const data = await response.json();
@@ -22,7 +24,7 @@ export default function UpdateBlog() {
       if (response.ok) {
         setTitle(data.blog.title);
         setDescription(data.blog.description);
-        setImage(data.blog.description);
+        setImage(data.blog.image);
       }
     };
 
@@ -32,31 +34,31 @@ export default function UpdateBlog() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData()
+
+      formData.append("updateTitle", updateTitle)
+      formData.append("updateDescription", updateDescription)
+      formData.append("updateImage", updateImage)
+
     try {
       const responsee = await fetch(
         `http://localhost:8080/admin/blog/${params.id}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            updateTitle,
-            updateDescription,
-            updateImage,
-          }),
+          body: formData,
+          credentials: "include"
         }
       );
 
       const data = await responsee.json();
 
       if (responsee.ok) {
-        return console.log("Blog updated successfully", data);
+        toast.success(data.message);
       } else {
-        return console.log("Error in updating blog", data);
+        toast.error(data.message || "Error in updating the blog");
       }
     } catch (err) {
-      console.log("Error in updating blog, pleasee try again.");
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -67,10 +69,15 @@ export default function UpdateBlog() {
     >
       <div>
         <h1 className="text-2xl font-semibold text-stone-900">Update blog</h1>
-        <p className="mt-1 text-sm text-stone-500">Edit the title, story, and image.</p>
+        <p className="mt-1 text-sm text-stone-500">
+          Edit the title, story, and image.
+        </p>
       </div>
       <div>
-        <label htmlFor="updateTitle" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="updateTitle"
+          className="block text-sm font-medium text-stone-700"
+        >
           Title:
           <input
             type="text"
@@ -83,7 +90,10 @@ export default function UpdateBlog() {
         </label>
       </div>
       <div>
-        <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="updateDescription"
+          className="block text-sm font-medium text-stone-700"
+        >
           Description:
           <textarea
             id="updateDescription"
@@ -94,14 +104,16 @@ export default function UpdateBlog() {
         </label>
       </div>
       <div>
-        <label htmlFor="updateDescription" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="updateDescription"
+          className="block text-sm font-medium text-stone-700"
+        >
           Image:
           <input
-            type="text"
+            type="file"
             id="image"
-            required
-            value={updateDescription}
-            onChange={(e) => setImage(e.target.value)}
+accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
             className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>

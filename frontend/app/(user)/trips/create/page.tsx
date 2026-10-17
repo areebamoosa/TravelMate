@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function CreateTrip() {
   const [title, setTitle] = useState("");
@@ -57,13 +58,15 @@ export default function CreateTrip() {
           destinationId,
         }),
       });
+
+      const data = await response.json();
       if (response.ok) {
-        console.log("Trip created successfully");
+        toast.success(data.message);
       } else {
-        console.error("Error creating trip");
+        toast.error(data.message || "Failed to create a trip");
       }
     } catch (err) {
-      console.error("Error:", err);
+      toast.error("Something went wrong please try again");
     }
   };
 
@@ -106,9 +109,9 @@ export default function CreateTrip() {
               type="date"
               value={startDate}
               onChange={(e) => {
-                const data = e.target.value
-                setStartDate(data)
-                calculateDays(data, endDate)
+                const data = e.target.value;
+                setStartDate(data);
+                calculateDays(data, endDate);
               }}
               className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />
@@ -125,9 +128,9 @@ export default function CreateTrip() {
               type="date"
               value={endDate}
               onChange={(e) => {
-                const data = e.target.value
-                setEndDate(data)
-                calculateDays(startDate, data)
+                const data = e.target.value;
+                setEndDate(data);
+                calculateDays(startDate, data);
               }}
               className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
             />

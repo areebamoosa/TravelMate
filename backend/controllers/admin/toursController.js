@@ -96,13 +96,20 @@ exports.updateTour = async (req, res, next) => {
     updatedName,
     updatedDescription,
     updatedPrice,
-    updatedPlaces,
     updatedDuration,
     destinationId,
     updatedPlaceIds,
   } = req.body;
 
-  const updatedImage = req.image.file;
+  const placeIds = JSON.parse(updatedPlaceIds || []).map(Number)
+
+
+  const existingTour = await prisma.tour.findUnique({
+    where: { id: tourId }
+  });
+
+
+  const updatedImage = req.file ? req.file.path : existingTour.image ;
 
   try {
     const tour = await prisma.tour.update({
@@ -110,21 +117,27 @@ exports.updateTour = async (req, res, next) => {
       data: {
         name: updatedName,
         description: updatedDescription,
-        price: updatedPrice,
+        price: Number(updatedPrice),
         image: updatedImage,
-        duration: updatedDuration,
-        destinationId: destinationId,
-        places: updatedPlaceIds,
+        duration: Number( updatedDuration),
+        destination: {
+          connect: { id: Number(destinationId) },
+        },
+
       },
     });
 
     await prisma.tourPlace.deleteMany({ where: { tourId: tourId } });
-    await prisma.tourPlace.createMany({
-      data: updatedPlaces.map((placeId) => ({
-        tourId: tourId,
-        placeId: parseInt(placeId),
-      })),
-    });
+    
+    if (placeIds.length > 0) {
+      await prisma.tourPlace.createMany({
+        data: placeIds.map((placeId) => ({
+          tourId,
+          placeId,
+        })),
+      });
+    }
+
 
     return res
       .status(200)

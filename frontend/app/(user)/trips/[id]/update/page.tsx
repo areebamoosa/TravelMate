@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function Trip() {
   const [title, setTitle] = useState("");
@@ -66,12 +67,13 @@ export default function Trip() {
         }),
       });
       if (response.ok) {
-        console.log("Trip updated successfully");
+        const data = await response.json();
+        toast.success(data.message);
       } else {
-        console.error("Error updating trip");
+        toast.error(data.message || "Failed to update your trip");
       }
     } catch (err) {
-      console.error("Error:", err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -88,7 +90,10 @@ export default function Trip() {
           </p>
         </div>
         <div>
-          <label htmlFor="" className="block text-sm font-medium text-stone-700">
+          <label
+            htmlFor=""
+            className="block text-sm font-medium text-stone-700"
+          >
             Update Title
           </label>
           <input
@@ -101,7 +106,10 @@ export default function Trip() {
 
         <div className="grid gap-4 sm:grid-cols-2">
           <div>
-            <label htmlFor="" className="block text-sm font-medium text-stone-700">
+            <label
+              htmlFor=""
+              className="block text-sm font-medium text-stone-700"
+            >
               Update Start Date
             </label>
             <input
@@ -112,7 +120,10 @@ export default function Trip() {
             />
           </div>
           <div>
-            <label htmlFor="" className="block text-sm font-medium text-stone-700">
+            <label
+              htmlFor=""
+              className="block text-sm font-medium text-stone-700"
+            >
               {" "}
               Update End Date
             </label>

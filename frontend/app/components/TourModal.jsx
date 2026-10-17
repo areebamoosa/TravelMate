@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function TourModal({ onClose }) {
 
@@ -32,19 +33,27 @@ export default function TourModal({ onClose }) {
     const handleBooking = async (e) => {
         e.preventDefault()
 
-        const response = await fetch("http://localhost:8080/admin/tour/booking", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "include",
-            body: JSON.stringify({ tourId: parseInt(tour.id), date, travelers: parseInt(travelers), totalPrice: parseInt(tour.price * travelers) })
-        })
+        try {
 
-        if (response.ok) {
-            console.log("Booking created successfully")
-        } else {
-            console.log("Error creating booking")
+            const response = await fetch("http://localhost:8080/tour/booking", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                credentials: "include",
+                body: JSON.stringify({ tourId: parseInt(tour.id), date, travelers: parseInt(travelers), totalPrice: parseInt(tour.price * travelers) })
+            })
+
+            const data = await response.json()
+
+            if (response.ok) {
+                toast.success(data.message)
+            } else {
+                toast.error(data.message || "Error creating the booking")
+            }
+
+        } catch (err) {
+            toast.error("Something went wrong, please try again.")
         }
     }
 

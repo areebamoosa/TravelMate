@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function CreatePlace() {
   const [updatedName, setName] = useState("");
@@ -17,27 +17,34 @@ export default function CreatePlace() {
   const params = useParams();
 
   useEffect(() => {
-
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:8080/admin/place/${params.id}`)
+      const response = await fetch(
+        `http://localhost:8080/admin/place/${params.id}`, {
+          credentials: "include"
 
-       const data = await response.json()
+        }
+      );
 
-       if (response.ok){
-        setName(data.place.name)
-        setDescription(data.place.description)
-        setImage(data.place.image)
-        setCategory(data.place.category)
-        setLatitude(data.place.latitude)
-        setLongitude(data.place.longitude)
-        setDestinationId(data.place.destinationId)
-       } else {
-        console.log("Failed fetching place's existing data")
-       }
-    }
+      const data = await response.json();
+
+      if (response.ok) {
+        setName(data.place.name);
+        setDescription(data.place.description);
+        setImage(data.place.image);
+        setCategory(data.place.category);
+        setLatitude(data.place.latitude);
+        setLongitude(data.place.longitude);
+        setDestinationId(data.place.destinationId);
+      } else {
+        console.log("Failed fetching place's existing data");
+      }
+    };
 
     const fetchDestinations = async () => {
-      const response = await fetch("http://localhost:8080/admin/destinations");
+      const response = await fetch("http://localhost:8080/admin/destinations", {
+        credentials: "include"
+
+      });
 
       const data = await response.json();
 
@@ -52,7 +59,6 @@ export default function CreatePlace() {
     fetchDestinations();
   }, []);
 
-
   const handleUpdate = async (e) => {
     e.preventDefault();
 
@@ -64,6 +70,8 @@ export default function CreatePlace() {
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
+
           body: JSON.stringify({
             updatedName,
             updatedDescription,
@@ -71,7 +79,7 @@ export default function CreatePlace() {
             updatedCategory,
             updatedLatitude,
             updatedLongitude,
-           destinationId: parseInt( destinationId),
+            destinationId: parseInt(destinationId),
           }),
         }
       );
@@ -79,12 +87,12 @@ export default function CreatePlace() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Place updated successfully", data);
+        toast.success(data.message);
       } else {
-        console.log("Error updating place", data);
+        toast.error(data.message || "Failed to update place");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -95,10 +103,15 @@ export default function CreatePlace() {
     >
       <div>
         <h1 className="text-2xl font-semibold text-stone-900">Update place</h1>
-        <p className="mt-1 text-sm text-stone-500">Edit this place and save the changes.</p>
+        <p className="mt-1 text-sm text-stone-500">
+          Edit this place and save the changes.
+        </p>
       </div>
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="name"
+          className="block text-sm font-medium text-stone-700"
+        >
           Update Name:
           <input
             type="text"
@@ -110,7 +123,10 @@ export default function CreatePlace() {
         </label>
       </div>
       <div>
-        <label htmlFor="description" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="description"
+          className="block text-sm font-medium text-stone-700"
+        >
           Update Description:
           <input
             type="text"
@@ -122,7 +138,10 @@ export default function CreatePlace() {
         </label>
       </div>
       <div>
-        <label htmlFor="image" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="image"
+          className="block text-sm font-medium text-stone-700"
+        >
           Update Image:
           <input
             type="text"
@@ -165,7 +184,10 @@ export default function CreatePlace() {
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2">
-        <label htmlFor="latitude" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="latitude"
+          className="block text-sm font-medium text-stone-700"
+        >
           Update Latitude:
           <input
             type="text"
@@ -175,7 +197,10 @@ export default function CreatePlace() {
             className="mt-1 w-full rounded-lg border border-stone-300 px-3 py-2 text-sm outline-none focus:border-brand"
           />
         </label>
-        <label htmlFor="longitude" className="block text-sm font-medium text-stone-700">
+        <label
+          htmlFor="longitude"
+          className="block text-sm font-medium text-stone-700"
+        >
           Update Longitude:
           <input
             type="text"

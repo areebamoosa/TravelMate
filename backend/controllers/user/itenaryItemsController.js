@@ -6,6 +6,15 @@ exports.createTrip = async (req, res, next) => {
   try {
     const { title, startDate, endDate, destinationId, days } = req.body;
 
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    if (end < start) {
+      return res.status(400).json({
+        message: "End date cannot be before the start date.",
+      });
+    }
+
     const trip = await prisma.trip.create({
       data: {
         title,
@@ -179,7 +188,7 @@ exports.schedeuleDays = async (req, res, next) => {
         day: selectedDay,
       },
     });
-    
+
     if (existingSchedule) {
       return res.status(400).json({
         message: "This day has already been scheduled",
@@ -205,7 +214,7 @@ exports.schedeuleDays = async (req, res, next) => {
     });
 
     return res.status(201).json({
-      message: "Place added to itinerary successfully.",
+      message: "Day scheduled successfully",
       itenaryItem,
     });
   } catch (err) {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { toast } from "sonner";
 
 export default function Places() {
   const [Places, SetPlaces] = useState([]);
@@ -8,7 +9,10 @@ export default function Places() {
   useEffect(() => {
     const fetchPlaces = async () => {
       try {
-        const response = await fetch("http://localhost:8080/admin/places");
+        const response = await fetch("http://localhost:8080/admin/places", {
+          credentials: "include"
+
+        });
 
         const data = await response.json();
         if (response.ok) {
@@ -28,6 +32,7 @@ export default function Places() {
         `http://localhost:8080/admin/delete-place/${id}`,
         {
           method: "DELETE",
+          credentials: "include"
         }
       );
 
@@ -35,13 +40,14 @@ export default function Places() {
 
       if (response.ok) {
         SetPlaces((prev) =>
-          prev.filter((place) => place.id !== data.deletedPlaceId)
+          prev.filter((place) => place.id !== id)
         );
+        toast.success(data.message);
       } else {
-        console.error("Failed to delete place", data);
+        toast.error(data.message || "Failed to delete a place");
       }
     } catch (err) {
-      console.log(err);
+      toast.error("Something went wrong, please try again.");
     }
   };
 
@@ -64,9 +70,13 @@ export default function Places() {
               key={place.id}
               className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
             >
-              <h2 className="text-lg font-semibold text-stone-900">{place.name}</h2>
+              <h2 className="text-lg font-semibold text-stone-900">
+                {place.name}
+              </h2>
               <p className="mt-1 text-sm text-stone-600">{place.description}</p>
-              <p className="mt-2 break-all text-xs text-stone-400">{place.image}</p>
+              <p className="mt-2 break-all text-xs text-stone-400">
+                {place.image}
+              </p>
               <p className="mt-3 inline-block rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand">
                 {place.category}
               </p>

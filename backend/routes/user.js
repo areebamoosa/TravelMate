@@ -31,6 +31,8 @@ router.get("/tours/:destinationId", toursController.getDestinationTours);
 
 router.get("/bookings", isAuth, bookingController.bookings);
 
+router.post('/tour/booking', isAuth, bookingController.createBooking)
+
 // Trip routes
 
 router.post("/create-trip", isAuth, itenaryItemController.createTrip);

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function ScheduleDay() {
   const [trip, setTrip] = useState(null);
@@ -32,7 +33,7 @@ export default function ScheduleDay() {
           console.log("Error fetching trip details");
         }
       } catch (err) {
-        console.error("Error: ", err);
+        toast.error("Something went wrong, please try again.");
       }
     };
 
@@ -59,15 +60,15 @@ export default function ScheduleDay() {
         }
       );
 
-      const responseData = await response.json();
+      const data = await response.json();
 
       if (response.ok) {
-        console.log("Day scheduled successfully:", responseData);
+        toast.success(data.message);
       } else {
-        console.error("Error scheduling day:", responseData);
+        toast.error(data.message || "Failed to schedule the day");
       }
     } catch (err) {
-      console.error("Error:", err);
+      toast.error("Something went wrong, please try again.");
     }
   };
   return (
@@ -78,13 +79,17 @@ export default function ScheduleDay() {
           className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
         >
           <div>
-            <h1 className="text-2xl font-semibold text-stone-900">Schedule a day</h1>
+            <h1 className="text-2xl font-semibold text-stone-900">
+              Schedule a day
+            </h1>
             <p className="mt-1 text-sm text-stone-500">
               Pick a day, a place, and a short note.
             </p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-stone-700">Day</label>
+            <label className="block text-sm font-medium text-stone-700">
+              Day
+            </label>
             <select
               value={day}
               onChange={(e) => setDay(Number(e.target.value))}
@@ -99,7 +104,9 @@ export default function ScheduleDay() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-stone-700">Place</label>
+            <label className="block text-sm font-medium text-stone-700">
+              Place
+            </label>
             <select
               value={selectedPlace ?? ""}
               onChange={(e) => setSelectedPlace(Number(e.target.value))}
