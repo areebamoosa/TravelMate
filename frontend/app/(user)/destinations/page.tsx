@@ -32,19 +32,19 @@ export default function Destinations() {
         {destinations.map((destination) => (
           <div
             key={destination.id}
-            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+            className="group overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <img
               src={destination.image}
               alt={destination.city}
-              className="h-44 w-full object-cover"
+              className="h-60 w-full object-cover transition duration-500 group-hover:scale-105"
             />
-            <div className="p-4">
+            <div className="p-5">
               <h1 className="text-lg font-semibold text-stone-900">{destination.city}</h1>
               <h1 className="text-sm text-stone-500">{destination.country}</h1>
               <a
                 href={`/destinations/${destination.id}`}
-                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
+                className="mt-4 inline-block rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
               >
                 See details
               </a>

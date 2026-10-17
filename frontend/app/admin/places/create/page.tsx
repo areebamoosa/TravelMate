@@ -74,7 +74,7 @@ export default function CreatePlace() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+      className="mx-auto w-full max-w-xl space-y-4 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
     >
       <div>
         <h1 className="text-2xl font-semibold text-stone-900">Create place</h1>

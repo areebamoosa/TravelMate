@@ -64,9 +64,6 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-sm text-center">
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-lg font-semibold">
-        TM
-      </div>
       <h1 className="text-3xl font-bold">Login</h1>
 
       <label htmlFor="" className="mt-6 block text-left text-sm font-medium">

@@ -21,7 +21,7 @@ export default function FeaturedTours() {
             href="/tours"
             className="overflow-hidden rounded-2xl border border-orange-100 bg-white shadow-sm"
           >
-            <MediaSlot label={label} className="h-44" />
+            <MediaSlot label={label} className="h-44"  />
             <div className="p-4">
               <p className="text-sm text-stone-500">
                 Open the tours page to see prices, duration, and places.

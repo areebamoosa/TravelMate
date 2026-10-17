@@ -68,7 +68,7 @@ export default function AuthMenu({ variant = "site" }: { variant?: "site" | "adm
 
   if (loggedIn) {
     return (
-      <LogoutButton className="whitespace-nowrap rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 hover:bg-stone-50" />
+      <LogoutButton className="whitespace-nowrap rounded-full bg-brand px-5 py-2 text-sm font-semibold text-white hover:bg-brand-dark" />
     );
   }
 

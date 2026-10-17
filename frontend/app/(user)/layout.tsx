@@ -1,5 +1,5 @@
-import SiteFooter from "@/app/components/layout/SiteFooter";
-import SiteHeader from "@/app/components/layout/SiteHeader";
+import Footer from "@/app/components/Footer";
+import Header from "@/app/components/Header";
 
 export default function UserLayout({
   children,
@@ -7,10 +7,10 @@ export default function UserLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-white">
-      <SiteHeader />
-      <main className="mx-auto max-w-6xl px-4 py-10">{children}</main>
-      <SiteFooter />
+    <div className="flex min-h-screen flex-col bg-stone-50">
+      <Header />
+      <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-10">{children}</main>
+      <Footer />
     </div>
   );
 }

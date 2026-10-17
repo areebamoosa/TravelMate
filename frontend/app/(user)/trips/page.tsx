@@ -80,7 +80,7 @@ export default function MyTrips() {
             </p>
           </div>
         ) : (
-          <p>You have no trips. Please create a personalised trip.</p>
+          <p className="text-lg font-medium text-stone-700">You have no trips. Please create a personalised trip.</p>
         )}
 
         <button
@@ -91,6 +91,7 @@ export default function MyTrips() {
               setLoginPop(true);
             }
           }}
+          className="rounded-full bg-brand px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-dark"
         >
           Create Trip
         </button>
@@ -100,51 +101,65 @@ export default function MyTrips() {
         {trips.map((trip) => (
           <div
             key={trip.id}
-            className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
+            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm sm:flex"
           >
-            <h1 className="text-lg font-semibold text-stone-900">
-              {trip.title}
-            </h1>
-            <div className="mt-3 grid gap-3 text-sm sm:grid-cols-3">
-              <div>
-                <p className="text-xs uppercase tracking-wide text-stone-500">
-                  Start
-                </p>
-                <h2 className="mt-1 text-stone-800">{trip.startDate}</h2>
+            <img
+              src={trip.destination?.image}
+              alt={trip.destination?.city || trip.title}
+              className="h-48 w-full object-cover sm:h-auto sm:w-56"
+            />
+            <div className="flex flex-1 flex-col p-5">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-sm font-medium text-brand">
+                    {trip.destination?.city}
+                    {trip.destination?.country ? `, ${trip.destination.country}` : ""}
+                  </p>
+                  <h1 className="mt-1 text-lg font-semibold text-stone-900">{trip.title}</h1>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => deleteTrip(trip.id)}
+                  aria-label="Delete trip"
+                  className="rounded-full p-2 text-red-600 hover:bg-red-50"
+                >
+                  <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8">
+                    <path d="M4 7h16" />
+                    <path d="M9 7V5h6v2" />
+                    <path d="M8 7l1 12h6l1-12" />
+                  </svg>
+                </button>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-stone-500">
-                  End
-                </p>
-                <h2 className="mt-1 text-stone-800">{trip.endDate}</h2>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-wide text-stone-500">
-                  Days
-                </p>
-                <h2 className="mt-1 text-stone-800">{trip.days}</h2>
-              </div>
-            </div>
 
-            <div className="mt-4 flex flex-wrap gap-3 text-sm">
-              <a
-                href={`/trips/${trip.id}`}
-                className="rounded-full bg-brand px-3 py-1.5 font-medium text-white hover:bg-brand-dark"
-              >
-                View Trip details
-              </a>
-              <a
-                href={`/trips/${trip.id}/update`}
-                className="rounded-lg border border-stone-300 px-3 py-1.5 font-medium text-stone-700 hover:bg-stone-50"
-              >
-                Update Trip details
-              </a>
-              <button
-                onClick={() => deleteTrip(trip.id)}
-                className="rounded-full bg-red-600 px-3 py-1.5 font-medium text-white hover:bg-red-700"
-              >
-                Delete Trip
-              </button>
+              <div className="mt-4 grid gap-3 text-sm sm:grid-cols-3">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Start</p>
+                  <h2 className="mt-1 font-medium text-stone-800">{String(trip.startDate).split("T")[0]}</h2>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">End</p>
+                  <h2 className="mt-1 font-medium text-stone-800">{String(trip.endDate).split("T")[0]}</h2>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-stone-400">Days</p>
+                  <h2 className="mt-1 font-medium text-stone-800">{trip.days}</h2>
+                </div>
+              </div>
+
+              <div className="mt-auto flex flex-wrap gap-3 pt-5 text-sm">
+                <a
+                  href={`/trips/${trip.id}`}
+                  className="rounded-full bg-brand px-4 py-2 font-semibold text-white hover:bg-brand-dark"
+                >
+                  View Trip details
+                </a>
+                <a
+                  href={`/trips/${trip.id}/update`}
+                  className="rounded-full border border-brand px-4 py-2 font-semibold text-brand hover:bg-orange-50"
+                >
+                  Update Trip details
+                </a>
+              </div>
             </div>
           </div>
         ))}

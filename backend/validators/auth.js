@@ -18,10 +18,8 @@ exports.signupValidator = [
     .withMessage("Please enter a valid email address"),
   body("password")
     .isLength({ min: 6 })
-    .trim()
     .withMessage("Password must be at least 6 characters long"),
   body("confirmPassword")
-    .trim()
     .custom((value, { req }) => {
       if (value !== req.body.password) {
         throw new Error("Both passwords do not match");

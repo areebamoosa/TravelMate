@@ -3,6 +3,17 @@
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
 
+function statusStyle(status) {
+  const value = String(status || "").toLowerCase();
+  if (value === "confirmed" || value === "approved") {
+    return "bg-green-100 text-green-700";
+  }
+  if (value === "cancelled" || value === "canceled") {
+    return "bg-red-100 text-red-700";
+  }
+  return "bg-sky-100 text-sky-700";
+}
+
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
   const [loggedIn, setIsLoggedIn] = useState(false);
@@ -69,43 +80,39 @@ export default function Bookings() {
                   key={booking.id}
                   className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
                 >
-                  <h2 className="text-lg font-semibold text-stone-900">
-                    {booking.tour.name}
-                  </h2>
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <h2 className="text-lg font-semibold text-stone-900">
+                      {booking.tour.name}
+                    </h2>
+                    <p className={`rounded-full px-3 py-1 text-xs font-medium uppercase ${statusStyle(booking.status)}`}>
+                      {booking.status}
+                    </p>
+                  </div>
 
-                  <div className="mt-4 grid gap-3 sm:grid-cols-4">
+                  <div className="mt-4 grid gap-4 border-t border-stone-100 pt-4 sm:grid-cols-3">
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-stone-500">
+                      <p className="text-xs uppercase tracking-wide text-stone-400">
                         Date
                       </p>
-                      <p className="mt-1 text-sm font-medium text-stone-900">
+                      <p className="mt-1 text-sm font-medium text-stone-800">
                         {new Date(booking.date).toLocaleDateString()}
                       </p>
                     </div>
 
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-stone-500">
-                        Status
-                      </p>
-                      <p className="mt-1 inline-block rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800">
-                        {booking.status}
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-xs uppercase tracking-wide text-stone-500">
+                      <p className="text-xs uppercase tracking-wide text-stone-400">
                         Total
                       </p>
-                      <p className="mt-1 text-sm font-semibold text-brand">
+                      <p className="mt-1 text-sm font-medium text-stone-800">
                         {booking.totalPrice}
                       </p>
                     </div>
 
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-stone-500">
+                      <p className="text-xs uppercase tracking-wide text-stone-400">
                         Travelers
                       </p>
-                      <p className="mt-1 text-sm font-medium text-stone-900">
+                      <p className="mt-1 text-sm font-medium text-stone-800">
                         {booking.travelers}
                       </p>
                     </div>
@@ -115,10 +122,10 @@ export default function Bookings() {
             </div>
           </div>
         ) : (
-          <h1>You don't have any tours reserved.</h1>
+          <h1 className="text-2xl font-semibold text-stone-900">You don't have any tours reserved.</h1>
         )
       ) : (
-        <h1>Please log in to view your bookings.</h1>
+        <h1 className="text-2xl font-semibold text-stone-900">Please log in to view your bookings.</h1>
       )}
     </>
   );

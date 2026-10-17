@@ -21,8 +21,10 @@ export default function RootLayout({
   }>) {
     return (
       <html lang="en">
-        <body className={`${poppins.variable} ${caveat.variable} min-h-screen bg-white font-sans text-stone-800 antialiased`}>{children}</body>
-        <Toaster position="top-right" richColors/>
+        <body className={`${poppins.variable} ${caveat.variable} min-h-screen bg-white font-sans text-stone-800 antialiased`}>
+          {children}
+          <Toaster position="top-right" richColors />
+        </body>
       </html>
     );
   }

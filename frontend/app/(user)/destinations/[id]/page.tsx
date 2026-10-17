@@ -83,31 +83,35 @@ export default function Destination() {
           </div>
 
           {destination.latitude != null && destination.longitude != null && (
-            <section className="mt-10">
-              <h2 className="mb-4 text-xl font-semibold text-stone-900">
-                Explore on Map
-              </h2>
+            <section className="mt-8 grid items-stretch gap-4 lg:grid-cols-5">
+              <div className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm lg:col-span-3">
+                <div className="border-b border-stone-100 px-5 py-4">
+                  <p className="text-xs font-medium uppercase tracking-wide text-stone-400">
+                    Location
+                  </p>
+                  <h2 className="mt-1 text-lg font-semibold text-stone-900">
+                    {destination.city}, {destination.country}
+                  </h2>
+                </div>
+                <div className="h-[340px]">
+                  <TravelMapLoader
+                    latitude={Number(destination.latitude)}
+                    longitude={Number(destination.longitude)}
+                    name={`${destination.city}, ${destination.country}`}
+                  />
+                </div>
+              </div>
 
-              <div className="overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
-                <TravelMapLoader
+              <div className="lg:col-span-2">
+                <Weather
                   latitude={Number(destination.latitude)}
                   longitude={Number(destination.longitude)}
-                  name={`${destination.city}, ${destination.country}`}
                 />
               </div>
             </section>
           )}
         </>
       )}
-
-      {destination &&
-        destination.latitude != null &&
-        destination.longitude != null && (
-          <Weather
-            latitude={Number(destination.latitude)}
-            longitude={Number(destination.longitude)}
-          />
-        )}
 
       <h2 className="mt-10 text-xl font-semibold text-stone-900">Places</h2>
       <div className="mt-4 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -148,14 +152,14 @@ export default function Destination() {
         {tours.map((tour) => (
           <div
             key={tour.id}
-            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+            className="group overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <img
               src={tour.image}
               alt={tour.name}
-              className="h-40 w-full object-cover"
+              className="h-56 w-full object-cover transition duration-500 group-hover:scale-105"
             />
-            <div className="p-4">
+            <div className="p-5">
               <h1 className="text-lg font-semibold text-stone-900">
                 {tour.name}
               </h1>
@@ -168,7 +172,7 @@ export default function Destination() {
               </div>
               <a
                 href={`/tours/${tour.id}`}
-                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
+                className="mt-4 inline-block rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
               >
                 See details of Tour
               </a>

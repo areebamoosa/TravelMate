@@ -79,6 +79,6 @@ router.put('/tour/:tourId', upload.single("image"), isAuth, checkRole, tourContr
 router.delete('/tour/:tourId',isAuth, checkRole, tourController.deleteTour)
 
 
-router.get('/weather', isAuth, checkRole, weatherController.getWeather)
+router.get('/weather', weatherController.getWeather)
 
 module.exports = router;

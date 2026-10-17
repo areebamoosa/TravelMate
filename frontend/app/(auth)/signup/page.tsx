@@ -16,7 +16,7 @@ export default function SignUp() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, confirmPassword }),
       });
 
       const data = await response.json();
@@ -47,9 +47,6 @@ export default function SignUp() {
 
   return (
     <form onSubmit={handleSubmit} className="mx-auto max-w-sm text-center">
-      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-white/20 text-lg font-semibold">
-        TM
-      </div>
       <h1 className="text-3xl font-bold">Register</h1>
 
       <input
@@ -61,7 +58,7 @@ export default function SignUp() {
       />
       {errors.email && <p className="mt-1 text-left text-sm text-red-100">{errors.email}</p>}
       <input
-        type="text"
+        type="password"
         placeholder="Enter password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +70,7 @@ export default function SignUp() {
       )}
 
       <input
-        type="text"
+        type="password"
         placeholder="Confirm password"
         value={confirmPassword}
         onChange={(e) => setConfirmPassword(e.target.value)}

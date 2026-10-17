@@ -83,7 +83,7 @@ export default function CreateDestination() {
   return (
     <form
       onSubmit={handleUpdate}
-      className="max-w-xl rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+      className="mx-auto w-full max-w-xl rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
     >
       <h1 className="text-2xl font-semibold text-stone-900">
         Update destination

@@ -33,14 +33,14 @@ export default function Tours() {
         {tours.map((tour) => (
           <div
             key={tour.id}
-            className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm"
+            className="group overflow-hidden rounded-3xl border border-orange-100 bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <img
               src={tour.image}
               alt={tour.name}
-              className="h-44 w-full object-cover"
+              className="h-60 w-full object-cover transition duration-500 group-hover:scale-105"
             />
-            <div className="p-4">
+            <div className="p-5">
               <h1 className="text-lg font-semibold text-stone-900">{tour.name}</h1>
               <h1 className="mt-2 line-clamp-3 text-sm text-stone-600">{tour.description}</h1>
               <h1 className="mt-3 text-base font-semibold text-brand">{tour.price}</h1>
@@ -50,7 +50,7 @@ export default function Tours() {
               </div>
               <a
                 href={`/tours/${tour.id}`}
-                className="mt-4 inline-block text-sm font-medium text-brand hover:text-brand-dark"
+                className="mt-4 inline-block rounded-full bg-brand px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-dark"
               >
                 See details of tour
               </a>

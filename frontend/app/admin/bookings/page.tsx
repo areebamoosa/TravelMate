@@ -2,6 +2,17 @@
 
 import { useEffect, useState } from "react";
 
+function statusStyle(status) {
+  const value = String(status || "").toLowerCase();
+  if (value === "confirmed" || value === "approved") {
+    return "bg-green-100 text-green-700";
+  }
+  if (value === "cancelled" || value === "canceled") {
+    return "bg-red-100 text-red-700";
+  }
+  return "bg-sky-100 text-sky-700";
+}
+
 export default function Bookings() {
   const [bookings, setBookings] = useState([]);
 
@@ -57,7 +68,7 @@ export default function Bookings() {
                 <p className="text-xs uppercase tracking-wide text-stone-500">
                   Status
                 </p>
-                <h1 className="mt-1 inline-block rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-800">
+                <h1 className={`mt-1 inline-block rounded-full px-2.5 py-1 text-xs font-medium uppercase ${statusStyle(booking.status)}`}>
                   {booking.status}
                 </h1>
               </div>

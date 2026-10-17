@@ -100,18 +100,25 @@ toast.error("Error fetching trip's schedules")
         <div className="mt-8">
           <h2 className="text-xl font-semibold text-stone-900">Schedule</h2>
           <div className="mt-4 grid gap-4">
-            {schedules.map((schedule) => (
+            {[...schedules]
+              .sort((a, b) => a.day - b.day)
+              .map((schedule) => (
               <div
                 key={schedule.id}
-                className="rounded-2xl border border-stone-200 bg-white p-5 shadow-sm"
+                className="overflow-hidden rounded-2xl border border-stone-200 bg-white shadow-sm sm:flex"
               >
-                <h1 className="text-lg font-semibold text-stone-900">{schedule.title}</h1>
-                <h1 className="mt-2 text-sm text-stone-600">{schedule.notes}</h1>
-                <div className="mt-3 flex flex-wrap gap-3 text-sm">
-                  <h1 className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand">
+                <img
+                  src={schedule.place.image}
+                  alt={schedule.place.name}
+                  className="h-44 w-full object-cover sm:h-auto sm:w-48"
+                />
+                <div className="p-5">
+                  <p className="text-xs font-medium uppercase tracking-wide text-brand">
                     Day {schedule.day}
-                  </h1>
-                  <h1 className="text-stone-700">{schedule.place.name}</h1>
+                  </p>
+                  <h1 className="mt-1 text-lg font-semibold text-stone-900">{schedule.title}</h1>
+                  <h1 className="mt-1 text-sm text-stone-500">{schedule.place.name}</h1>
+                  <h1 className="mt-3 text-sm leading-relaxed text-stone-600">{schedule.notes}</h1>
                 </div>
               </div>
             ))}

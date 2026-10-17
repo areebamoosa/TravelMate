@@ -51,7 +51,7 @@ toast.error("Something went wrong, please try again.")
   return (
     <form
       onSubmit={handleSubmit}
-      className="max-w-xl rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
+      className="mx-auto w-full max-w-xl rounded-2xl border border-stone-200 bg-white p-6 shadow-sm"
     >
       <h1 className="text-2xl font-semibold text-stone-900">Create destination</h1>
       <p className="mt-1 mb-6 text-sm text-stone-500">
